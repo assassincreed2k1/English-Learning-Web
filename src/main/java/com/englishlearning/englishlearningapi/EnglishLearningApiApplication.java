@@ -1,4 +1,4 @@
-package com.hoctienganh.englishlearningapi;
+package com.englishlearning.englishlearningapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
