@@ -1,6 +1,6 @@
-package com.englishlearning.englishlearningapi.model.system;
+package com.englishlearning.model.system;
 
-import com.englishlearning.englishlearningapi.model.BaseEntity;
+import com.englishlearning.model.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -10,13 +10,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "readingExams")
+@Table(name = "grammarLessons")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReadingExam extends BaseEntity {
+public class GrammarLesson extends BaseEntity {
+    private String title;
     @Column(columnDefinition = "MEDIUMTEXT")
-    private String script;
-
+    private String content;
+    private String image;
 }
