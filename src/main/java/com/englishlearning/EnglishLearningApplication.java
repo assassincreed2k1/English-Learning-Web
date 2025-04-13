@@ -1,11 +1,11 @@
-package com.englishlearning.englishlearningapi;
+package com.englishlearning;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EnglishLearningApiApplication {
+public class EnglishLearningApplication {
     public static void main(String[] args) {
-        SpringApplication.run(EnglishLearningApiApplication.class, args);
+        SpringApplication.run(EnglishLearningApplication.class, args);
     }
 }

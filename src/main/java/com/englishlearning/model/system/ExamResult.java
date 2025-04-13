@@ -1,7 +1,7 @@
-package com.englishlearning.englishlearningapi.model.system;
+package com.englishlearning.model.system;
 
-import com.englishlearning.englishlearningapi.model.BaseEntity;
-import com.englishlearning.englishlearningapi.model.user.User;
+import com.englishlearning.model.BaseEntity;
+import com.englishlearning.model.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;

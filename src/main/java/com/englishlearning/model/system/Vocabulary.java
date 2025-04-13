@@ -1,7 +1,7 @@
-package com.englishlearning.englishlearningapi.model.system;
+package com.englishlearning.model.system;
 
 
-import com.englishlearning.englishlearningapi.model.BaseEntity;
+import com.englishlearning.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.englishlearning.englishlearningapi.model;
+package com.englishlearning.model;
 
 
 import jakarta.persistence.*;

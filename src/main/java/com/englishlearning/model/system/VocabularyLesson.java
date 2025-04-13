@@ -1,5 +1,6 @@
-package com.englishlearning.englishlearningapi.model.system;
+package com.englishlearning.model.system;
 
+import com.englishlearning.model.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -8,11 +9,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "grammarExams")
+@Table(name = "vocabularyLessons")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GrammarExam extends Exam {
-
+public class VocabularyLesson extends BaseEntity {
+    private String name;
+    private String image;
 }
