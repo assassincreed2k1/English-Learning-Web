@@ -2,14 +2,13 @@ package com.englishlearning.model.system;
 
 import com.englishlearning.model.BaseEntity;
 import com.englishlearning.model.user.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "examResults")
@@ -29,4 +28,7 @@ public class ExamResult extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "exam_id")
     private Exam exam;
+
+    @OneToMany(mappedBy = "examResult", cascade = CascadeType.ALL)
+    private List<UserAnswer> userAnswers;
 }
