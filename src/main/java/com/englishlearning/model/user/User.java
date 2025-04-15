@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -23,8 +22,10 @@ public class User extends BaseEntity {
     private String email;
     private String password;
     private String username;
-    private String gender;
     private String phoneNumber;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -38,5 +39,4 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user")
     private List<ExamResult> examResults;
-
 }
