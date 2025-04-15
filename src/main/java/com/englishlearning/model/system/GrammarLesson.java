@@ -17,7 +17,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class GrammarLesson extends BaseEntity {
     private String title;
-    @Column(columnDefinition = "MEDIUMTEXT")
+    @Column(columnDefinition = "TEXT")
     private String content;
     private String image;
 }

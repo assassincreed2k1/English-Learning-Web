@@ -1,6 +1,6 @@
-package com.englishlearning.englishlearningapi.repository;
+package com.englishlearning.repository;
 
-import com.englishlearning.englishlearningapi.model.Vocabulary;
+import com.englishlearning.model.system.Vocabulary;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface VocabularyRepository extends JpaRepository<Vocabulary, Long> {
