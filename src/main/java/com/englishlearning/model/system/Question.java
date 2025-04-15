@@ -16,10 +16,10 @@ import lombok.Setter;
 public class Question extends BaseEntity {
 
     private String content;
-    private String option_A;
-    private String option_B;
-    private String option_C;
-    private String option_D;
+    private String optionA;
+    private String optionB;
+    private String optionC;
+    private String optionD;
     @Enumerated(EnumType.STRING)
     private AnswerOption correctAnswer;
     public enum AnswerOption {
