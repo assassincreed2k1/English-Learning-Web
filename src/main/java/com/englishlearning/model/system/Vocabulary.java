@@ -4,8 +4,8 @@ package com.englishlearning.model.system;
 import com.englishlearning.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Getter;
 import lombok.Setter;
 
 @Entity
