@@ -11,7 +11,6 @@ import lombok.Setter;
 @Table(name = "grammarExams")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 public class GrammarExam extends Exam {
 

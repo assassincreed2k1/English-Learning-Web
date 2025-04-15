@@ -12,7 +12,6 @@ import lombok.Setter;
 @Table(name = "vocabularyExams")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 public class VocabularyExam extends BaseEntity {
 
