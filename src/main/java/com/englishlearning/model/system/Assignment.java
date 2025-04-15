@@ -34,15 +34,14 @@ public class Assignment extends BaseEntity {
     @OneToMany(mappedBy = "assignment", cascade = CascadeType.ALL, orphanRemoval = true)
     List<AssignmentQuestion> assignmentQuestions = new ArrayList<>();
 
+    @OneToMany(mappedBy = "assignment", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<ExamAssignment> examAssignments = new ArrayList<>();
+
     public void addQuestionFromEntity(Question question) {
         AssignmentQuestion aq = new AssignmentQuestion();
         aq.setAssignment(this);
         aq.setQuestion(question);
         this.assignmentQuestions.add(aq);
-    }
-
-    public enum Type {
-        pronunciation, reading, listening
     }
 
     public void setType(Type type) {
@@ -57,18 +56,22 @@ public class Assignment extends BaseEntity {
         }
 
         switch (this.type) {
-            case pronunciation:
+            case PRONUNCIATION:
                 this.description = "Choose the word whose pronunciation is different from the others.";
                 break;
-            case reading:
+            case READING:
                 this.description = "Read the passage and answer the questions.";
                 break;
-            case listening:
+            case LISTENING:
                 this.description = "Listen to the audio and choose the correct answer.";
                 break;
             default:
                 this.description = "Choose the correct answer.";
         }
+    }
+
+    public enum Type {
+        PRONUNCIATION, READING, LISTENING
     }
 
 }
