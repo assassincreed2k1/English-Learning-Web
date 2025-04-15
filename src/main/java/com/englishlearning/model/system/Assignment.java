@@ -1,0 +1,74 @@
+package com.englishlearning.model.system;
+
+import java.util.List;
+import java.util.ArrayList;
+
+import com.englishlearning.model.BaseEntity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Table(name = "assignments")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor                 
+public class Assignment extends BaseEntity {
+    private Integer score;
+    private Integer quantity;
+    private String content;
+    private String description;
+
+    @Enumerated(EnumType.STRING)
+    private Type type;
+
+    @OneToMany(mappedBy = "assignment", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<AssignmentQuestion> assignmentQuestions = new ArrayList<>();
+
+    public void addQuestionFromEntity(Question question) {
+        AssignmentQuestion aq = new AssignmentQuestion();
+        aq.setAssignment(this);
+        aq.setQuestion(question);
+        this.assignmentQuestions.add(aq);
+    }
+
+    public enum Type {
+        pronunciation, reading, listening
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+        setDescription();
+    }
+
+    protected void setDescription() {
+        if (this.type == null) {
+            this.description = "No specific requirement.";
+            return;
+        }
+
+        switch (this.type) {
+            case pronunciation:
+                this.description = "Choose the word whose pronunciation is different from the others.";
+                break;
+            case reading:
+                this.description = "Read the passage and answer the questions.";
+                break;
+            case listening:
+                this.description = "Listen to the audio and choose the correct answer.";
+                break;
+            default:
+                this.description = "Choose the correct answer.";
+        }
+    }
+
+}

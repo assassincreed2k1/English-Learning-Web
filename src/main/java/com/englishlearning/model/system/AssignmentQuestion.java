@@ -1,33 +1,37 @@
 package com.englishlearning.model.system;
 
 import com.englishlearning.model.BaseEntity;
-import com.englishlearning.model.user.User;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "exam_results")
+@Table(name = "assignment_question")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExamResult extends BaseEntity {
-    private Integer score;
-    private Integer numberCorrect;
-    private Integer numberWrong;
-    private Double percentageCorrect;
+public class AssignmentQuestion extends BaseEntity {
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "question_id")
+    private Question question;
 
     @ManyToOne
-    @JoinColumn(name = "exam_id")
-    private Exam exam;
+    @JoinColumn(name = "assignment_id")
+    private Assignment assignment;
+
+    @Builder
+    public AssignmentQuestion(Assignment assignment, Question question) {
+        this.assignment = assignment;
+        this.question = question;
+    }
+
 }
