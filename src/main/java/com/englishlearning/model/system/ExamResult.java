@@ -23,6 +23,7 @@ public class ExamResult extends BaseEntity {
     private Integer numberCorrect;
     private Integer numberWrong;
     private Double percentageCorrect;
+    
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
