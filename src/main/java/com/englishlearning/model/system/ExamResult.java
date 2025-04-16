@@ -17,9 +17,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ExamResult extends BaseEntity {
-    private Integer score;
-    private Integer numberCorrect;
-    private Integer numberWrong;
+    private Integer score; // vd: 7
+    private Integer numberCorrect;// vd:7
+    private Integer numberWrong;//3
     private Double percentageCorrect;
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -30,5 +30,5 @@ public class ExamResult extends BaseEntity {
     private Exam exam;
 
     @OneToMany(mappedBy = "examResult", cascade = CascadeType.ALL)
-    private List<UserAnswer> userAnswers;
+    private List<UserAnswer> userAnswers;//
 }

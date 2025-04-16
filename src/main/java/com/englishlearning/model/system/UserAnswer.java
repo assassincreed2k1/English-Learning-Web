@@ -22,8 +22,14 @@ public class UserAnswer extends BaseEntity {
     private Question question;
 
     @Enumerated(EnumType.STRING)
-    private Question.AnswerOption selectedAnswer;
+    private Question.AnswerOption selectedAnswer; // A
 
-    private boolean isCorrect;
+    private boolean isCorrect;//
 
 }
+
+
+
+
+
+
