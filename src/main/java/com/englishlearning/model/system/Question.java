@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.englishlearning.model.BaseEntity;
+import com.englishlearning.model.user.SubmissionAnswer;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.CascadeType;
@@ -34,10 +35,20 @@ public class Question extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private AnswerOption correctAnswer;
 
+    @Enumerated(EnumType.STRING)
+    private QuestionType QuestionType;
+
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AssignmentQuestion> assignmentQuestions = new ArrayList<>();
 
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<SubmissionAnswer> submissionAnswers = new ArrayList<>();
+
     public enum AnswerOption {
         A, B, C, D
+    }
+
+    public enum QuestionType {
+        ESSAY_QUESTION, TF_QUESTION, CHOICE_QUESTION
     }
 }
