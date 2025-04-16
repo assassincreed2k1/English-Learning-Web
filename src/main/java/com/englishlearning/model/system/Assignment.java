@@ -73,5 +73,4 @@ public class Assignment extends BaseEntity {
     public enum Type {
         PRONUNCIATION, READING, LISTENING
     }
-
 }
