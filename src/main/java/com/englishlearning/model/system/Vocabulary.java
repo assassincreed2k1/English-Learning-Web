@@ -31,5 +31,4 @@ public class Vocabulary extends BaseEntity {
     public enum Type {
         N, V, ADJ, ADV
     }
-
 }

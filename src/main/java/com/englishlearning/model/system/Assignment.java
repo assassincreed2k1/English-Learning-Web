@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor                 
+@AllArgsConstructor
 public class Assignment extends BaseEntity {
     private Integer score;
     private Integer quantity;

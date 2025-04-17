@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
 @Entity
 @Table(name = "vocabulary_lessons")
 @Getter

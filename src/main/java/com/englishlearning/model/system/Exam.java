@@ -16,7 +16,6 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
 @Entity
 @Table(name = "exams")
 @Getter
@@ -45,5 +44,4 @@ public class Exam extends BaseEntity {
     public enum ExamType {
         VOCABULARY, GRAMMAR, LISTENING, READING,
     }
-
 }
