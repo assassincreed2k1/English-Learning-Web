@@ -5,14 +5,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
+
 @Entity
-@Table(name = "vocabularyLessons")
+@Table(name = "vocabulary_lessons")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,6 +21,4 @@ import java.util.List;
 public class VocabularyLesson extends BaseEntity {
     private String name;
     private String image;
-    @OneToMany(mappedBy = "lesson")
-    private List<Vocabulary> vocabularies;
 }
