@@ -16,3 +16,5 @@ application.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+# Maven-specific (Eclipse m2e)
+.idea
