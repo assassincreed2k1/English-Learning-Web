@@ -3,7 +3,6 @@ package com.englishlearning.service;
 import com.englishlearning.model.user.User;
 import com.englishlearning.repository.UserRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -28,10 +27,12 @@ public class UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
     public User getUserById(Long id) throws Exception {
         User user = userRepository.findById(id).orElseThrow(() -> new Exception("User not found"));
         return user;
     }
+    
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }

@@ -26,7 +26,7 @@ public class Exam extends BaseEntity {
     private String title;
     private String image;
     private Integer duration;
-    private Integer totalAssignment;
+    private Integer totalAssignment = 0;
 
     @Enumerated(EnumType.STRING)
     private ExamType examType;
@@ -39,6 +39,7 @@ public class Exam extends BaseEntity {
         ea.setExam(this);
         ea.setAssignment(assignment);
         this.examAssignments.add(ea);
+        totalAssignment++;
     }
 
     public enum ExamType {
