@@ -12,9 +12,13 @@
   </parent>
 
   <groupId>com.englishlearning</groupId>
-  <artifactId>backend</artifactId>
+  <artifactId>english-learning-api</artifactId>
   <version>1.0.0</version>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>backend</module>
+  </modules>
 
   <name>English Learning API</name>
 
@@ -93,12 +97,8 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <mainClass>com.englishlearning.EnglishLearningApplication</mainClass>
-        </configuration>
       </plugin>
     </plugins>
   </build>
+
 </project>
-
-
