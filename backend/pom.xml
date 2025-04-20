@@ -97,6 +97,7 @@
           <mainClass>com.englishlearning.EnglishLearningApplication</mainClass>
         </configuration>
       </plugin>
+      
     </plugins>
   </build>
 </project>

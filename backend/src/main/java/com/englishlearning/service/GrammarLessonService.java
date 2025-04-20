@@ -4,6 +4,9 @@ import java.util.List;
 import com.englishlearning.model.system.GrammarLesson;
 import com.englishlearning.repository.GrammarLessonRepository;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class GrammarLessonService {
     private final GrammarLessonRepository grammarLessonRepository;
 

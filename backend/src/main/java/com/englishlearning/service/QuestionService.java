@@ -3,8 +3,11 @@ package com.englishlearning.service;
 import com.englishlearning.model.system.Question;
 import com.englishlearning.repository.QuestionRepository;
 
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+@Service
 public class QuestionService {
     private final QuestionRepository questionRepository;
 
