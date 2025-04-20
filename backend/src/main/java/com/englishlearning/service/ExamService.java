@@ -4,6 +4,8 @@ import java.util.List;
 import com.englishlearning.model.system.Exam;
 import com.englishlearning.repository.ExamRepository;
 
+import org.springframework.stereotype.Service;
+@Service
 public class ExamService {
     private final ExamRepository examRepository;
 

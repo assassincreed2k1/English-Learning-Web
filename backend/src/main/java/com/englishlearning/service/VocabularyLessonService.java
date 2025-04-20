@@ -4,6 +4,9 @@ import java.util.List;
 import com.englishlearning.model.system.VocabularyLesson;
 import com.englishlearning.repository.VocabularyLessonRepository;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class VocabularyLessonService {
     private final VocabularyLessonRepository vocabularyLessonRepository;
 

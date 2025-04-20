@@ -4,6 +4,9 @@ import java.util.List;
 import com.englishlearning.model.user.Submission;
 import com.englishlearning.repository.SubmissionRepository;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class SubmissionService {
     private final SubmissionRepository submissionRepository;
 

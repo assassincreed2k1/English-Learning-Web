@@ -4,6 +4,9 @@ import java.util.List;
 import com.englishlearning.model.system.Assignment;
 import com.englishlearning.repository.AssignmentRepository;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class AssignmentService {
     private final AssignmentRepository assignmentRepository;
 

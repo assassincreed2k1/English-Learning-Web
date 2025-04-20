@@ -2,6 +2,9 @@ package com.englishlearning.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class BaseService<T> {
     // Base service class for common functionality
     // This can be extended by other services to inherit common methods or properties
