@@ -23,8 +23,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Assignment extends BaseEntity {
-    private Integer score;
-    private Integer quantity;
+    private Integer quantity = 0;
     private String content;
     private String description;
 
@@ -42,6 +41,7 @@ public class Assignment extends BaseEntity {
         aq.setAssignment(this);
         aq.setQuestion(question);
         this.assignmentQuestions.add(aq);
+        quantity++;
     }
 
     public void setType(Type type) {
@@ -49,7 +49,7 @@ public class Assignment extends BaseEntity {
         setDescription();
     }
 
-    protected void setDescription() {
+    private void setDescription() {
         if (this.type == null) {
             this.description = "No specific requirement.";
             return;

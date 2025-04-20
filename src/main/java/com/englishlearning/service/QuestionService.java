@@ -19,6 +19,12 @@ public class QuestionService {
     public Question updateQuestion(Long questionId, Question request) throws Exception {
         Question question = this.getQuestionById(questionId);
         question.setContent(request.getContent());
+        question.setOptionA(request.getOptionA());
+        question.setOptionB(request.getOptionB());
+        question.setOptionC(request.getOptionC());
+        question.setOptionD(request.getOptionD());
+        question.setCorrectAnswer(request.getCorrectAnswer());
+        question.setQuestionType(request.getQuestionType()); 
         return questionRepository.save(question);
     }
 
