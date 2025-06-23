@@ -39,8 +39,7 @@ public class Question extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private QuestionType QuestionType;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AssignmentQuestion> assignmentQuestions = new ArrayList<>();
+
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     List<SubmissionAnswer> submissionAnswers = new ArrayList<>();
