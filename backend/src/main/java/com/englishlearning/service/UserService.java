@@ -15,8 +15,10 @@ public class UserService {
     }
 
     public User createUser(User user) {
+
         return userRepository.save(user);
     }
+    
     public User updateUser(Long userId, User request) throws Exception {
         User user = this.getUserById(userId);
         user.setGender(request.getGender());

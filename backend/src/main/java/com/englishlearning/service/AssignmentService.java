@@ -39,4 +39,14 @@ public class AssignmentService {
     public void deleteAssignmentById(Long id) {
         assignmentRepository.deleteById(id);
     }
+
+    public List<Assignment> searchAssignments(String keyword) {
+        return assignmentRepository.findByDescriptionContainingIgnoreCaseOrTypeContainingIgnoreCase(keyword, keyword);
+    }    
+
+    // public List<Assignment> getAssignmentsByUserId(Long userId);     Dev when need sort by userId or LessonId
+    // public List<Assignment> getAssignmentsByLessonId(Long lessonId);
+    // public Page<Assignment> getAssignments(Pageable pageable) {      Dev when there are many assignments
+    //     return assignmentRepository.findAll(pageable);
+    // }
 }
