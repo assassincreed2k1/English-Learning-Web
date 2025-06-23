@@ -4,12 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import com.englishlearning.model.BaseEntity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,22 +22,18 @@ public class Assignment extends BaseEntity {
     private String content;
     private String description;
 
+
     @Enumerated(EnumType.STRING)
     private Type type;
 
-    @OneToMany(mappedBy = "assignment", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<AssignmentQuestion> assignmentQuestions = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "assignment_questions",
+            joinColumns = @JoinColumn(name = "assignment_id"),
+            inverseJoinColumns = @JoinColumn(name = "question_id")
+    )
+    private List<Question> questions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "assignment", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<ExamAssignment> examAssignments = new ArrayList<>();
-
-    public void addQuestionFromEntity(Question question) {
-        AssignmentQuestion aq = new AssignmentQuestion();
-        aq.setAssignment(this);
-        aq.setQuestion(question);
-        this.assignmentQuestions.add(aq);
-        quantity++;
-    }
 
     public void setType(Type type) {
         this.type = type;
