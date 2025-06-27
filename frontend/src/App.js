@@ -1,13 +1,15 @@
-import logo from "./logo.svg";
-import "./App.css";
-import Register from "./page/Register";
-
+// App.js
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import AppRouter from "./routers"; // hoặc "./routers/index"
 
 function App() {
   return (
-    <div className="App">
-      <Register></Register>
-    </div>
+    <BrowserRouter>
+      {" "}
+      {/* Chỉ ở đây dùng */}
+      <AppRouter />
+    </BrowserRouter>
   );
 }
 
