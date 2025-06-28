@@ -62,8 +62,9 @@ public class SubmissionService {
         return submissionRepository.save(submission);
     }
 
-    public List<Submission> getAllSubmissions() {
-        return submissionRepository.findAll();
+
+    public List<Submission> getSubmissionsByExamId(Long examId){
+        return submissionRepository.findByExamId(examId);
     }
 
     public Submission getSubmissionById(Long id) throws Exception {
