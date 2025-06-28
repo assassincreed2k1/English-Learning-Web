@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.englishlearning.model.BaseEntity;
 
+import com.englishlearning.model.system.Exam;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -36,6 +37,10 @@ public class Submission extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    @ManyToOne
+    @JoinColumn(name = "exam_id")
+    private Exam exam;
+
 
     public void calculateScoreAndPercentage() {
         if (totalQuestion == null || totalQuestion == 0) {

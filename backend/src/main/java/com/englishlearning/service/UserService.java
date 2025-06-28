@@ -2,6 +2,9 @@ package com.englishlearning.service;
 
 import com.englishlearning.model.user.User;
 import com.englishlearning.repository.UserRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,4 +41,19 @@ public class UserService {
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
+
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new RuntimeException("User chưa đăng nhập");
+        }
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof UserDetails) {
+            String email = ((UserDetails) principal).getUsername();
+            return userRepository.findByEmail(email);
+        }
+
+        throw new RuntimeException("Không thể xác định user hiện tại");
+    }
+
 }
