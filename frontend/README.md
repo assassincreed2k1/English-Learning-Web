@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# 🧠 English Learning Web Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**English Learning** là một ứng dụng web hỗ trợ học tiếng Anh hiệu quả dành cho học sinh, sinh viên và giáo viên. Dự án cung cấp một hệ thống quản lý học liệu, bài tập, đề thi và ngân hàng câu hỏi với giao diện trực quan và dễ sử dụng.
 
-## Available Scripts
+## 🚀 Mục Tiêu Dự Án
 
-In the project directory, you can run:
+- Hỗ trợ người học luyện tập tiếng Anh thông qua các đề thi, bài tập được phân loại rõ ràng.
+- Giúp giáo viên dễ dàng tạo và quản lý câu hỏi, bài tập, đề thi.
+- Tối ưu trải nghiệm người dùng với giao diện thân thiện, responsive.
+- Cấu trúc frontend - backend rõ ràng, dễ bảo trì và mở rộng.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 📚 Tính Năng Chính
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 👨‍🏫 Dành cho Admin
+- Quản lý **Ngân hàng câu hỏi**: tạo, chỉnh sửa, xóa, phân loại theo chủ đề.
+- Quản lý **Ngân hàng bài tập**: nhóm các câu hỏi thành một bài tập.
+- Quản lý **Ngân hàng đề thi**: tạo đề thi từ bài tập hoặc câu hỏi.
+- Quản lý **Kho học liệu**: lưu trữ và phân phối tài liệu học tập (PDF, video, v.v.).
+- Giao diện dashboard quản trị rõ ràng, dễ thao tác.
 
-### `npm test`
+### 👩‍🎓 Dành cho Học Viên
+- Truy cập và làm bài tập, đề thi online.
+- Xem lại kết quả và phân tích lỗi sai.
+- Tải và sử dụng tài liệu học tập miễn phí.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🛠️ Công Nghệ Sử Dụng
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Backend
+- **Java Spring Boot**: REST API phục vụ dữ liệu cho frontend.
+- **PostgreSQL**: lưu trữ dữ liệu chính (câu hỏi, bài tập, đề thi...).
+- **Spring Security** *(nếu dùng)*: xác thực và phân quyền người dùng.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Frontend
+- **ReactJS**: xây dựng giao diện người dùng động và hiện đại.
+- **React Router**: định tuyến các trang frontend.
+- **TailwindCSS** hoặc CSS module: tùy chỉnh giao diện.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Cấu trúc thư mục
