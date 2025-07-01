@@ -3,6 +3,7 @@ package com.englishlearning.controller;
 import com.englishlearning.model.system.Question;
 import com.englishlearning.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,8 +35,12 @@ public class QuestionController {
     }
 
     @GetMapping("/{id}")
-    public Question getQuestionById(@PathVariable Long id) throws Exception {
-        return questionService.getQuestionById(id);
+    public ResponseEntity<Question> getQuestionById(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(questionService.getQuestionById(id));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
