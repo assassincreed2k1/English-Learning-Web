@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Header from "../../components/Admin/Header";
+import Footer from "../../components/Admin/Footer";
 
 const AdminDashboard = () => {
   return (

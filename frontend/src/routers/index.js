@@ -1,8 +1,8 @@
 // AppRouter.jsx
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import QuestionBankPage from "../pages/QuestionBankPage";
-import AdminDashboard from "../pages/AdminDashboard";
+import QuestionBankPage from "../pages/Admin/QuestionBankPage";
+import AdminDashboard from "../pages/Admin/AdminDashboard";
 
 const AppRouter = () => {
   return (
