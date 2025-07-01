@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "jwt.signerKey",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.signerKey'"
+  },
+  {
+    "name": "jwt.valid-duration",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.valid-duration'"
+  },
+  {
+    "name": "jwt.refreshable-duration",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.refreshable-duration'"
+  }
+]}

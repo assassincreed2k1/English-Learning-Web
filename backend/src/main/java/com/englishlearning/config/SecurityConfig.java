@@ -28,17 +28,23 @@ public class SecurityConfig {
     private CustomJwtDecoder customJwtDecoder;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests(request -> request.requestMatchers(PUBLIC_ENDPOINTS).permitAll()
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated());
+    // public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+    //     httpSecurity.authorizeHttpRequests(request -> request.requestMatchers(PUBLIC_ENDPOINTS).permitAll()
+    //             .requestMatchers("/api/admin/**").hasRole("ADMIN")
+    //             .anyRequest().authenticated());
 
-        httpSecurity.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfigurer -> jwtConfigurer
-                        .decoder(customJwtDecoder)
-                        .jwtAuthenticationConverter(jwtAuthenticationConverter()))
-                .authenticationEntryPoint(new JwtAuthenticationEntryPoint()));
-        httpSecurity.csrf(AbstractHttpConfigurer::disable);
+    //     httpSecurity.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfigurer -> jwtConfigurer
+    //                     .decoder(customJwtDecoder)
+    //                     .jwtAuthenticationConverter(jwtAuthenticationConverter()))
+    //             .authenticationEntryPoint(new JwtAuthenticationEntryPoint()));
+    //     httpSecurity.csrf(AbstractHttpConfigurer::disable);
 
+    //     return httpSecurity.build();
+    // }
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {    // Đoạn này để Test, sẽ bỏ sau khi hoàn thành
+        httpSecurity
+                .authorizeHttpRequests(request -> request.anyRequest().permitAll())
+                .csrf(AbstractHttpConfigurer::disable);
         return httpSecurity.build();
     }
 
