@@ -38,3 +38,57 @@
 - **ReactJS**: xây dựng giao diện người dùng động và hiện đại.
 - **React Router**: định tuyến các trang frontend.
 - **TailwindCSS**: tùy chỉnh giao diện.
+
+## 🗂️ Cấu Trúc Dự Án
+
+<br>
+
+```bash
+english-learning/
+├── backend/                                 # Backend - Java Spring Boot
+│   └── src/
+│       └── main/
+│           ├── java/com/example/
+│           │   ├── config/                  # Cấu hình Spring Security, CORS, ...
+│           │   ├── controller/              # REST Controller (API endpoints)
+│           │   ├── dto/                     # Data Transfer Object
+│           │   ├── model/                   # Entity JPA (User, Question, …)
+│           │   ├── repository/              # Spring Data JPA Repositories
+│           │   ├── service/                 # Business logic
+│           │   └── util/                    # Các class tiện ích (Token, Convert, …)
+│           └── resources/
+│               └── application.properties   # File cấu hình Spring Boot
+│
+│   └── pom.xml                              # Cấu hình Maven
+│
+├── frontend/                                # Frontend - ReactJS
+│   ├── node_modules/                        # Thư viện npm
+│   ├── public/                              # Index HTML, favicon, …
+│   ├── src/
+│   │   ├── api/                             # Gọi API backend
+│   │   ├── assets/                          # Hình ảnh, icon, …
+│   │   ├── components/                      # Các component dùng chung
+│   │   ├── pages/                           # Các trang chính
+│   │   │   ├── Admin/
+│   │   │   │   ├── AdminDashboard.js        # Trang quản trị dashboard
+│   │   │   │   └── QuestionBank.js          # Trang ngân hàng câu hỏi
+│   │   │   └── Register.js                  # Trang đăng ký
+│   │   ├── routers/                         # Cấu hình route với React Router
+│   │   ├── services/                        # Xử lý nghiệp vụ (Auth, Token, …)
+│   │   ├── App.js
+│   │   ├── App.css
+│   │   ├── index.js                         # Điểm khởi chạy React
+│   │   ├── index.css
+│   │   ├── logo.svg
+│   │   ├── App.test.js
+│   │   ├── reportWebVitals.js
+│   │   └── setupTests.js
+│
+│   ├── package.json                         # Cấu hình project React
+│   ├── package-lock.json                    # Khóa version các dependencies
+│   └── .gitignore
+│
+├── .idea/                                   # Cấu hình cho IDE JetBrains (IntelliJ, WebStorm,…)
+├── .vscode/                                 # Cấu hình cho Visual Studio Code
+├── docs/                                    # Tài liệu dự án, thiết kế, mockup, … (nếu có)
+├── scripts/                                 # Scripts tự động (build, deploy, test,…)
