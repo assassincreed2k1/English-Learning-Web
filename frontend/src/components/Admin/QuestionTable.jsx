@@ -1,17 +1,16 @@
-// src/components/QuestionTable.jsx
 import React from "react";
 
-const QuestionTable = ({ questions }) => {
+const QuestionTable = ({ questions, onEdit, onDelete }) => {
   return (
-    <div className="overflow-x-auto mt-6">
-      <table className="w-full table-auto border-collapse">
+    <div className="bg-white rounded-lg shadow p-4">
+      <table className="w-full table-auto">
         <thead>
-          <tr className="bg-blue-100 text-left">
-            <th className="px-4 py-2">#</th>
-            <th className="px-4 py-2">Nội dung</th>
-            <th className="px-4 py-2">Cấp độ</th>
-            <th className="px-4 py-2">Chủ đề</th>
-            <th className="px-4 py-2">Hành động</th>
+          <tr className="bg-gray-200">
+            <th className="p-2 text-left">#</th>
+            <th className="p-2 text-left">Nội dung</th>
+            <th className="p-2 text-left">Phân loại</th>
+            <th className="p-2 text-left">Chủ đề</th>
+            <th className="p-2 text-left">Hành động</th>
           </tr>
         </thead>
         <tbody>
@@ -23,15 +22,24 @@ const QuestionTable = ({ questions }) => {
             </tr>
           ) : (
             questions.map((q, index) => (
-              <tr key={q.id} className="border-t">
-                <td className="px-4 py-2">{index + 1}</td>
-                <td className="px-4 py-2">{q.content}</td>
-                <td className="px-4 py-2">{q.level}</td>
-                <td className="px-4 py-2">{q.topic}</td>
-                <td className="px-4 py-2">
-                  <button className="text-blue-500 hover:underline">Sửa</button>
-                  {" | "}
-                  <button className="text-red-500 hover:underline">Xoá</button>
+              <tr key={q.id} className="border-b">
+                <td className="p-2">{index + 1}</td>
+                <td className="p-2">{q.content}</td>
+                <td className="p-2">{q.questionType}</td>
+                <td className="p-2">{q.topic}</td>
+                <td className="p-2 space-x-2">
+                  <button
+                    className="px-3 py-1 bg-yellow-400 text-white rounded hover:bg-yellow-500"
+                    onClick={() => onEdit && onEdit(q)}
+                  >
+                    Sửa
+                  </button>
+                  <button
+                    className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                    onClick={() => onDelete && onDelete(q.id)}
+                  >
+                    Xoá
+                  </button>
                 </td>
               </tr>
             ))
