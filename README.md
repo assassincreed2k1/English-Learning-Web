@@ -37,6 +37,6 @@
 ### Frontend
 - **ReactJS**: xây dựng giao diện người dùng động và hiện đại.
 - **React Router**: định tuyến các trang frontend.
-- **TailwindCSS** hoặc CSS module: tùy chỉnh giao diện.
+- **TailwindCSS**: tùy chỉnh giao diện.
 
 ### Cấu trúc thư mục
