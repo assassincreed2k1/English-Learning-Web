@@ -41,7 +41,7 @@ public class AssignmentService {
     }
 
     public List<Assignment> searchAssignments(String keyword) {
-        return assignmentRepository.findByDescriptionContainingIgnoreCaseOrTypeContainingIgnoreCase(keyword, keyword);
+        return assignmentRepository.searchByKeyword(keyword);
     }    
 
     // public List<Assignment> getAssignmentsByUserId(Long userId);     Dev when need sort by userId or LessonId
