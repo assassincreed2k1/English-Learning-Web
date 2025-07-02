@@ -10,13 +10,13 @@ const Header = () => {
         <Link to ="/" className="text-2xl font-bold text-gray-800 hover:text-blue-500"> English Learning</Link>
       </div>
       <nav className="space-x-6 text-gray-700 font-medium">
-        <Link to="/question-bank" className="hover:text-blue-500">
+        <Link to="/admin/question-bank" className="hover:text-blue-500">
           Ngân hàng câu hỏi
         </Link>
-        <Link to="/exercise-bank" className="hover:text-blue-500">
+        <Link to="/admin/exercise-bank" className="hover:text-blue-500">
           Ngân hàng bài tập
         </Link>
-        <a href="#" className="hover:text-blue-500">
+        <a href="/admin/exam" className="hover:text-blue-500">
           Ngân hàng đề thi
         </a>
         <a href="#" className="hover:text-blue-500">
