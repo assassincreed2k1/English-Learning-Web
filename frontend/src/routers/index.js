@@ -10,6 +10,9 @@ import ExamList from "../pages/User/ExamList";
 import ExerciseBankPage from "../pages/Admin/ExerciseBankPage";
 import CreateExercisePage from "../pages/Admin/CreateExercisePage";
 import EditExercisePage from "../pages/Admin/EditExercisePage";
+import ExamBankPage from "../pages/Admin/ExamBankPage";
+import CreateExamPage from "../pages/Admin/CreateExamPage";
+import EditExamPage from "../pages/Admin/EditExamPage";
 
 const AppRouter = () => {
   return (
@@ -26,6 +29,9 @@ const AppRouter = () => {
       <Route path="/exercise-bank" element={<ExerciseBankPage />} />
       <Route path="/exercise-bank/create" element={<CreateExercisePage />} />
       <Route path="/edit-exercise/:id" element={<EditExercisePage />} />
+      <Route path="/exam-bank" element={<ExamBankPage />} />
+      <Route path="/exam-bank/create" element={<CreateExamPage />} />
+      <Route path="/edit-exam/:id" element={<EditExamPage />} />
 
       {/* Add more routes as needed */}
     </Routes>
