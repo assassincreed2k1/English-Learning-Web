@@ -13,9 +13,9 @@ const Header = () => {
         <Link to="/question-bank" className="hover:text-blue-500">
           Ngân hàng câu hỏi
         </Link>
-        <a href="#" className="hover:text-blue-500">
+        <Link to="/exercise-bank" className="hover:text-blue-500">
           Ngân hàng bài tập
-        </a>
+        </Link>
         <a href="#" className="hover:text-blue-500">
           Ngân hàng đề thi
         </a>

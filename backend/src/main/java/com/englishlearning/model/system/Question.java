@@ -37,7 +37,7 @@ public class Question extends BaseEntity {
     private AnswerOption correctAnswer;
 
     @Enumerated(EnumType.STRING)
-    private QuestionType QuestionType;
+    private QuestionType questionType;
 
 
 
