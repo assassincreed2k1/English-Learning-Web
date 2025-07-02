@@ -1,21 +1,43 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Register = () => {
   const [form, setForm] = useState({
-    name: '',
+    username: '',
     email: '',
     password: '',
     confirmPassword: ''
   });
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Dữ liệu đăng ký:', form);
-    // TODO: Gửi dữ liệu về backend xử lý đăng ký
+    setError('');
+    if (form.password !== form.confirmPassword) {
+      setError('Mật khẩu không khớp');
+      return;
+    }
+    try {
+      const res = await axios.post('http://localhost:8080/api/auth/register', {
+        username: form.username,
+        email: form.email,
+        password: form.password
+      });
+      if (res.data) {
+        alert('Đăng ký thành công!');
+        navigate('/login');
+      } else {
+        setError(res.data.message || 'Đăng ký thất bại');
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || 'Lỗi kết nối server');
+    }
   };
 
   return (
@@ -24,22 +46,19 @@ const Register = () => {
         <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-8">
           Đăng ký tài khoản
         </h2>
-
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            
-            <label className="block mb-2 text-gray-700 font-medium">Họ tên</label>
+            <label className="block mb-2 text-gray-700 font-medium">Tên người dùng</label>
             <input
               type="text"
-              name="name"
-              value={form.name}
+              name="username"
+              value={form.username}
               onChange={handleChange}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Nhập họ tên"
+              placeholder="Nhập tên người dùng"
               required
             />
           </div>
-
           <div>
             <label className="block mb-2 text-gray-700 font-medium">Email</label>
             <input
@@ -52,7 +71,6 @@ const Register = () => {
               required
             />
           </div>
-
           <div>
             <label className="block mb-2 text-gray-700 font-medium">Mật khẩu</label>
             <input
@@ -77,7 +95,7 @@ const Register = () => {
               required
             />
           </div>
-
+          {error && <div className="text-red-500 text-center">{error}</div>}
           <button
             type="submit"
             className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity duration-300"

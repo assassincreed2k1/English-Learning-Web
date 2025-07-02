@@ -10,16 +10,14 @@ import com.englishlearning.dto.response.IntrospectResponse;
 import com.englishlearning.model.user.User;
 import com.englishlearning.repository.UserRepository;
 import com.englishlearning.service.AuthenticationService;
+import com.englishlearning.service.UserService;
 import com.nimbusds.jose.JOSEException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 
@@ -31,6 +29,7 @@ public class AuthenticationController {
     AuthenticationService authenticationService;
     UserRepository userRepository;
     PasswordEncoder passwordEncoder;
+    private final UserService userService;
 
     @PostMapping("/login")
     ApiResponse<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) throws Exception {
@@ -60,11 +59,22 @@ public class AuthenticationController {
     @PostMapping("/register")
     ApiResponse<User> register(@RequestBody User request) throws ParseException, JOSEException {
             request.setPassword(passwordEncoder.encode(request.getPassword()));
+            request.setEmail(request.getEmail());
+            request.setUsername(request.getUsername());
             request= userRepository.save(request);
         return ApiResponse.<User>builder()
                 .code(HttpStatus.CREATED.value())
                 .message("Register successfully")
                 .result(request)
+                .build();
+    }
+    @GetMapping("/profile")
+    ApiResponse<User> getProfile() throws ParseException, JOSEException {
+        User user = userService.getCurrentUser();
+        return ApiResponse.<User>builder()
+                .code(HttpStatus.OK.value())
+                .message("Get profile successfully")
+                .result(user)
                 .build();
     }
 }
