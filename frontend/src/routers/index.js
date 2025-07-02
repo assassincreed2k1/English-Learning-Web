@@ -22,10 +22,13 @@ const AppRouter = () => {
       {/* <Route path="/" element={<AdminDashboard />} />
       <Route path="/question-bank" element={<QuestionBankPage />} /> */}
       <Route path="/admin" element={<AdminDashboard />} />
-      <Route path="/question-bank" element={<QuestionBankPage />} />
-      <Route path="/exercise-bank" element={<ExerciseBankPage />} />
-      <Route path="/exercise-bank/create" element={<CreateExercisePage />} />
-      <Route path="/edit-exercise/:id" element={<EditExercisePage />} />
+      <Route path="/admin/question-bank" element={<QuestionBankPage />} />
+      <Route path="/admin/exercise-bank" element={<ExerciseBankPage />} />
+      <Route
+        path="/admin/exercise-bank/create"
+        element={<CreateExercisePage />}
+      />
+      <Route path="/admin/edit-exercise/:id" element={<EditExercisePage />} />
 
       {/* Add more routes as needed */}
     </Routes>
