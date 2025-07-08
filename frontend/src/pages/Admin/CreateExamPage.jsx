@@ -157,4 +157,8 @@ const CreateExamPage = () => {
   );
 };
 
+<<<<<<< HEAD
 export default CreateExamPage;
+=======
+export default CreateExamPage;
+>>>>>>> origin

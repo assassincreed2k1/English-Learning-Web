@@ -35,4 +35,8 @@ export const getExamById = async (id) => {
   const res = await fetch(`${API_URL}/${id}`);
   if (!res.ok) throw new Error("Không tìm thấy đề thi");
   return res.json();
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> origin

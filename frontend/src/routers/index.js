@@ -13,6 +13,10 @@ import EditExercisePage from "../pages/Admin/EditExercisePage";
 import ExamBankPage from "../pages/Admin/ExamBankPage";
 import CreateExamPage from "../pages/Admin/CreateExamPage";
 import EditExamPage from "../pages/Admin/EditExamPage";
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin
 
 const AppRouter = () => {
   return (
