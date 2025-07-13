@@ -2,11 +2,8 @@ package com.englishlearning.model.user;
 
 import com.englishlearning.model.BaseEntity;
 import com.englishlearning.model.system.Question;
-import com.englishlearning.model.system.Question.AnswerOption;
 
-import jakarta.persistence.EnumType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -34,6 +31,6 @@ public class SubmissionAnswer extends BaseEntity{
     @JoinColumn(name = "question_id")
     private Question question;
 
-    @Enumerated(EnumType.STRING)
-    private AnswerOption answerOption;
+    // Đáp án của người dùng, có thể là A/B/C/D, "Đúng"/"Sai", hoặc text
+    private String answer;
 }

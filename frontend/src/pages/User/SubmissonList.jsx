@@ -57,4 +57,4 @@ const SubmissonList = () => {
   );
 };
 
-export default
+export default  SubmissonList;
