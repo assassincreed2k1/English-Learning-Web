@@ -17,7 +17,7 @@ const QuestionBankPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTopic, setSelectedTopic] = useState("");
   const [selectedType, setSelectedType] = useState("");
-  const [selectedPoints, setSelectedPoints] = useState("");
+  // Đã xoá filter điểm số
   const [showFilters, setShowFilters] = useState(false);
 
   // Topics and types from backend
@@ -37,7 +37,7 @@ const QuestionBankPage = () => {
     { value: "ESSAY", label: "Tự luận" }
   ];
 
-  const pointOptions = [1, 2, 3, 4, 5];
+  // Đã xoá biến pointOptions
 
   // Lấy danh sách câu hỏi từ API
   useEffect(() => {
@@ -47,7 +47,7 @@ const QuestionBankPage = () => {
   // Filter questions when search term or filters change
   useEffect(() => {
     filterQuestions();
-  }, [questions, searchTerm, selectedTopic, selectedType, selectedPoints]);
+  }, [questions, searchTerm, selectedTopic, selectedType]);
 
   const fetchQuestions = async () => {
     setLoading(true);
@@ -82,10 +82,7 @@ const QuestionBankPage = () => {
       filtered = filtered.filter(q => q.questionType === selectedType);
     }
 
-    // Filter by points
-    if (selectedPoints) {
-      filtered = filtered.filter(q => q.points === parseInt(selectedPoints));
-    }
+    // Đã xoá filter theo điểm số
 
     setFilteredQuestions(filtered);
   };
@@ -94,7 +91,6 @@ const QuestionBankPage = () => {
     setSearchTerm("");
     setSelectedTopic("");
     setSelectedType("");
-    setSelectedPoints("");
   };
 
   // Thêm câu hỏi mới
@@ -139,7 +135,6 @@ const QuestionBankPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Header Section */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
@@ -162,7 +157,6 @@ const QuestionBankPage = () => {
             </button>
           </div>
         </div>
-
         {/* Search and Filter Section */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
           {/* Search Bar */}
@@ -193,7 +187,6 @@ const QuestionBankPage = () => {
               Bộ lọc
             </button>
           </div>
-
           {/* Filter Options */}
           {showFilters && (
             <div className="border-t pt-4">
@@ -214,7 +207,6 @@ const QuestionBankPage = () => {
                     ))}
                   </select>
                 </div>
-
                 {/* Type Filter */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Loại câu hỏi</label>
@@ -231,24 +223,6 @@ const QuestionBankPage = () => {
                     ))}
                   </select>
                 </div>
-
-                {/* Points Filter */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Điểm số</label>
-                  <select
-                    value={selectedPoints}
-                    onChange={(e) => setSelectedPoints(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  >
-                    <option value="">Tất cả điểm</option>
-                    {pointOptions.map(point => (
-                      <option key={point} value={point}>
-                        {point} điểm
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
                 {/* Clear Filters */}
                 <div className="flex items-end">
                   <button
@@ -262,7 +236,6 @@ const QuestionBankPage = () => {
             </div>
           )}
         </div>
-
         {/* Error Message */}
         {error && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
@@ -274,7 +247,6 @@ const QuestionBankPage = () => {
             </div>
           </div>
         )}
-
         {/* Content */}
         <div className="bg-white rounded-lg shadow-sm">
           {loading ? (
@@ -306,7 +278,6 @@ const QuestionBankPage = () => {
           )}
         </div>
       </div>
-
       {/* Modal */}
       <QuestionFormModal
         show={showModal}
@@ -317,7 +288,6 @@ const QuestionBankPage = () => {
         onSubmit={editQuestion ? handleUpdateQuestion : handleAddQuestion}
         initialData={editQuestion}
       />
-
       <Footer />
     </div>
   );

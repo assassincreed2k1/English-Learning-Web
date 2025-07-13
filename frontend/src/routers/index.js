@@ -9,6 +9,7 @@ import ExamList from "../pages/User/ExamList";
 // Admin pages (import từ đúng folder)
 import AdminDashboard from "../pages/Admin/Dashboard/AdminDashboard";
 import QuestionBankPage from "../pages/Admin/Questions/QuestionBankPage";
+import QuestionDetailPage from "../pages/Admin/Questions/QuestionDetailPage";
 import ExerciseBankPage from "../pages/Admin/Exercises/ExerciseBankPage";
 import CreateExercisePage from "../pages/Admin/Exercises/CreateExercisePage";
 import EditExercisePage from "../pages/Admin/Exercises/EditExercisePage";
@@ -26,6 +27,7 @@ const AppRouter = () => {
 
       <Route path="/admin" element={<AdminDashboard />} />
       <Route path="/admin/question-bank" element={<QuestionBankPage />} />
+      <Route path="/admin/questions/:id" element={<QuestionDetailPage />} />
       <Route path="/admin/exercise-bank" element={<ExerciseBankPage />} />
       <Route path="/admin/exercise-bank/create" element={<CreateExercisePage />} />
       <Route path="/admin/edit-exercise/:id" element={<EditExercisePage />} />

@@ -1,12 +1,10 @@
+
 package com.englishlearning.service;
 
 import com.englishlearning.model.system.Question;
-import com.englishlearning.model.system.Question.TopicOption;
-import com.englishlearning.model.system.Question.QuestionType;
+import com.englishlearning.model.system.Question.AnswerOption;
 import com.englishlearning.repository.QuestionRepository;
-
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -18,38 +16,30 @@ public class QuestionService {
     }
 
     public Question createQuestion(Question question) {
-        // Validate required fields
         if (question.getContent() == null || question.getContent().trim().isEmpty()) {
             throw new IllegalArgumentException("Question content cannot be empty");
         }
-
-        // Set default values if not provided
-        if (question.getPoints() == null) {
-            question.setPoints(1);
+        if (question.getOptionA() == null || question.getOptionB() == null || question.getOptionC() == null || question.getOptionD() == null) {
+            throw new IllegalArgumentException("All options (A-D) are required");
         }
-
+        if (question.getCorrectAnswer() == null) {
+            throw new IllegalArgumentException("Correct answer must be one of: A, B, C, D");
+        }
+        // No points field anymore
         return questionRepository.save(question);
     }
 
     public Question updateQuestion(Long questionId, Question request) throws Exception {
         Question question = this.getQuestionById(questionId);
-
-        // Update basic fields
         question.setContent(request.getContent());
         question.setOptionA(request.getOptionA());
         question.setOptionB(request.getOptionB());
         question.setOptionC(request.getOptionC());
         question.setOptionD(request.getOptionD());
         question.setCorrectAnswer(request.getCorrectAnswer());
-        question.setQuestionType(request.getQuestionType());
-
-        // Update new fields
         question.setTopic(request.getTopic());
         question.setExplanation(request.getExplanation());
-        question.setPoints(request.getPoints());
-        question.setAudioUrl(request.getAudioUrl());
-        question.setImageUrl(request.getImageUrl());
-
+        question.setCategory(request.getCategory());
         return questionRepository.save(question);
     }
 
@@ -66,28 +56,13 @@ public class QuestionService {
         questionRepository.deleteById(id);
     }
 
-    // Additional methods for filtering
-    public List<Question> getQuestionsByTopic(TopicOption topic) {
+    public List<Question> getQuestionsByTopic(String topic) {
         return questionRepository.findByTopic(topic);
     }
 
-    public List<Question> getQuestionsByType(QuestionType type) {
-        return questionRepository.findByQuestionType(type);
+    public List<Question> getQuestionsByCategory(String category) {
+        return questionRepository.findByCategory(category);
     }
 
-    public List<Question> getQuestionsByTopicAndType(TopicOption topic, QuestionType type) {
-        return questionRepository.findByTopicAndQuestionType(topic, type);
-    }
-
-    public List<Question> getQuestionsByPoints(Integer points) {
-        return questionRepository.findByPoints(points);
-    }
-
-    public List<Question> getListeningQuestions() {
-        return questionRepository.findByAudioUrlIsNotNull();
-    }
-
-    public List<Question> getReadingQuestions() {
-        return questionRepository.findByImageUrlIsNotNull();
-    }
+    // Removed getQuestionsByPoints
 }

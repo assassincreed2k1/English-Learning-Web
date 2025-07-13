@@ -4,6 +4,7 @@ const API_URL = "http://localhost:8080/api/questions";
 const getToken = () => localStorage.getItem("token");
 
 // Hàm tạo headers có token
+// Only multiple-choice questions are supported
 const getAuthHeaders = () => ({
   "Content-Type": "application/json",
   Authorization: `Bearer ${getToken()}`,
