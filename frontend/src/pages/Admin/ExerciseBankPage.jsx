@@ -39,7 +39,7 @@ const ExerciseBankPage = () => {
   };
 
   const handleEdit = (id) => {
-    navigate(`/edit-exercise/${id}`);
+    navigate(`/admin/edit-exercise/${id}`);
   };
 
   return (
@@ -52,7 +52,7 @@ const ExerciseBankPage = () => {
           </h1>
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
-            onClick={() => navigate("/exercise-bank/create")}
+            onClick={() => navigate("/admin/exercise-bank/create")}
           >
             ➕ Thêm bài tập
           </button>

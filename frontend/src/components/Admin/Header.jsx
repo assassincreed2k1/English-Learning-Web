@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-
 const Header = () => {
   return (
     <header className="bg-white shadow-md px-6 py-4 flex items-center justify-between">
@@ -16,13 +15,13 @@ const Header = () => {
         </Link>
       </div>
       <nav className="space-x-6 text-gray-700 font-medium">
-        <Link to="/question-bank" className="hover:text-blue-500">
+        <Link to="/admin/question-bank" className="hover:text-blue-500">
           Ngân hàng câu hỏi
         </Link>
-        <Link to="/exercise-bank" className="hover:text-blue-500">
+        <Link to="/admin/exercise-bank" className="hover:text-blue-500">
           Ngân hàng bài tập
         </Link>
-        <Link to="/exam-bank" className="hover:text-blue-500">
+        <Link to="/admin/exam-bank" className="hover:text-blue-500">
           Ngân hàng đề thi
         </Link>
         <a href="#" className="hover:text-blue-500">
