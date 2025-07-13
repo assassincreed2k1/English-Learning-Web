@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Header from "../../components/Admin/Header";
-import Footer from "../../components/Admin/Footer";
-import { getQuestions } from "../../api/questionApi";
+import Header from "../../../components/Admin/Header";
+import Footer from "../../../components/Admin/Footer";
+import { getQuestions } from "../../../api/questionApi";
 import { useNavigate, useParams } from "react-router-dom";
-import { updateAssignment, getAssignments } from "../../api/assignmentApi";
+import { updateAssignment, getAssignments } from "../../../api/assignmentApi";
 
 const EditExercisePage = () => {
   const [questions, setQuestions] = useState([]);
