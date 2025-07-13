@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import QuestionTable from "../../components/Admin/QuestionTable";
-import QuestionFormModal from "../../components/Admin/QuestionFormModal";
-import Header from "../../components/Admin/Header";
-import Footer from "../../components/Admin/Footer"; 
-import { getQuestions, addQuestion, updateQuestion, deleteQuestion } from "../../api/questionApi";  
+import QuestionTable from "../../../components/Admin/QuestionTable";
+import QuestionFormModal from "../../../components/Admin/QuestionFormModal";
+import Header from "../../../components/Admin/Header";
+import Footer from "../../../components/Admin/Footer"; 
+import { getQuestions, addQuestion, updateQuestion, deleteQuestion } from "../../../api/questionApi";  
 
 const QuestionBankPage = () => {
   const [questions, setQuestions] = useState([]);
