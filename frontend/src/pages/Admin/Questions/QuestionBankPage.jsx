@@ -6,6 +6,18 @@ import Footer from "../../../components/Admin/Footer";
 import { getQuestions, addQuestion, updateQuestion, deleteQuestion } from "../../../api/questionApi";  
 
 const QuestionBankPage = () => {
+  const categoryOptions = [
+    { value: "Động vật", label: "Động vật" },
+    { value: "Cây cối", label: "Cây cối" },
+    { value: "Sinh hoạt", label: "Sinh hoạt" },
+    { value: "Công việc", label: "Công việc" },
+    { value: "Địa điểm", label: "Địa điểm" },
+    { value: "Thời tiết", label: "Thời tiết" },
+    { value: "Sức khoẻ", label: "Sức khoẻ" },
+    { value: "Gia đình", label: "Gia đình" },
+    { value: "Thực phẩm", label: "Thực phẩm" },
+    { value: "Khác", label: "Khác" }
+  ];
   const [questions, setQuestions] = useState([]);
   const [filteredQuestions, setFilteredQuestions] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -16,8 +28,9 @@ const QuestionBankPage = () => {
   // Filter states
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTopic, setSelectedTopic] = useState("");
-  const [selectedType, setSelectedType] = useState("");
-  // Đã xoá filter điểm số
+  // Removed type filter
+  const [selectedCategory, setSelectedCategory] = useState("");
+  // Removed points filter
   const [showFilters, setShowFilters] = useState(false);
 
   // Topics and types from backend
@@ -30,14 +43,9 @@ const QuestionBankPage = () => {
     { value: "WRITING", label: "Viết" }
   ];
 
-  const questionTypes = [
-    { value: "MULTIPLE_CHOICE", label: "Trắc nghiệm" },
-    { value: "TRUE_FALSE", label: "Đúng/Sai" },
-    { value: "FILL_IN_THE_BLANK", label: "Điền vào chỗ trống" },
-    { value: "ESSAY", label: "Tự luận" }
-  ];
+  // Removed unused questionTypes
 
-  // Đã xoá biến pointOptions
+  // Removed pointOptions
 
   // Lấy danh sách câu hỏi từ API
   useEffect(() => {
@@ -46,8 +54,21 @@ const QuestionBankPage = () => {
 
   // Filter questions when search term or filters change
   useEffect(() => {
-    filterQuestions();
-  }, [questions, searchTerm, selectedTopic, selectedType]);
+    let filtered = [...questions];
+    if (searchTerm) {
+      filtered = filtered.filter(q => 
+        q.content?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        q.explanation?.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+    if (selectedTopic) {
+      filtered = filtered.filter(q => q.topic === selectedTopic);
+    }
+    if (selectedCategory) {
+      filtered = filtered.filter(q => q.category === selectedCategory);
+    }
+    setFilteredQuestions(filtered);
+  }, [questions, searchTerm, selectedTopic, selectedCategory]);
 
   const fetchQuestions = async () => {
     setLoading(true);
@@ -60,37 +81,13 @@ const QuestionBankPage = () => {
     }
     setLoading(false);
   };
-
-  const filterQuestions = () => {
-    let filtered = [...questions];
-
-    // Search by content
-    if (searchTerm) {
-      filtered = filtered.filter(q => 
-        q.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        q.explanation?.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-
-    // Filter by topic
-    if (selectedTopic) {
-      filtered = filtered.filter(q => q.topic === selectedTopic);
-    }
-
-    // Filter by type
-    if (selectedType) {
-      filtered = filtered.filter(q => q.questionType === selectedType);
-    }
-
-    // Đã xoá filter theo điểm số
-
-    setFilteredQuestions(filtered);
-  };
+  // Removed unused questionTypes
+  // Removed unused filterQuestions function
 
   const clearFilters = () => {
     setSearchTerm("");
     setSelectedTopic("");
-    setSelectedType("");
+    setSelectedCategory("");
   };
 
   // Thêm câu hỏi mới
@@ -135,6 +132,7 @@ const QuestionBankPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
+      
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Header Section */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
@@ -157,6 +155,7 @@ const QuestionBankPage = () => {
             </button>
           </div>
         </div>
+
         {/* Search and Filter Section */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
           {/* Search Bar */}
@@ -187,6 +186,7 @@ const QuestionBankPage = () => {
               Bộ lọc
             </button>
           </div>
+
           {/* Filter Options */}
           {showFilters && (
             <div className="border-t pt-4">
@@ -207,22 +207,24 @@ const QuestionBankPage = () => {
                     ))}
                   </select>
                 </div>
-                {/* Type Filter */}
+
+                {/* Category Filter */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Loại câu hỏi</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Phân loại chủ đề</label>
                   <select
-                    value={selectedType}
-                    onChange={(e) => setSelectedType(e.target.value)}
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   >
-                    <option value="">Tất cả loại</option>
-                    {questionTypes.map(type => (
-                      <option key={type.value} value={type.value}>
-                        {type.label}
+                    <option value="">Tất cả phân loại</option>
+                    {categoryOptions.map(cat => (
+                      <option key={cat.value} value={cat.value}>
+                        {cat.label}
                       </option>
                     ))}
                   </select>
                 </div>
+
                 {/* Clear Filters */}
                 <div className="flex items-end">
                   <button
@@ -236,6 +238,7 @@ const QuestionBankPage = () => {
             </div>
           )}
         </div>
+
         {/* Error Message */}
         {error && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
@@ -247,6 +250,7 @@ const QuestionBankPage = () => {
             </div>
           </div>
         )}
+
         {/* Content */}
         <div className="bg-white rounded-lg shadow-sm">
           {loading ? (
@@ -278,6 +282,7 @@ const QuestionBankPage = () => {
           )}
         </div>
       </div>
+
       {/* Modal */}
       <QuestionFormModal
         show={showModal}
@@ -288,9 +293,10 @@ const QuestionBankPage = () => {
         onSubmit={editQuestion ? handleUpdateQuestion : handleAddQuestion}
         initialData={editQuestion}
       />
+
       <Footer />
     </div>
   );
-};
+}
 
 export default QuestionBankPage;
