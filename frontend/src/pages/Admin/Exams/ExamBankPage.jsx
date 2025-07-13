@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Header from "../../components/Admin/Header";
-import Footer from "../../components/Admin/Footer";
+import Header from "../../../components/Admin/Header";
+import Footer from "../../../components/Admin/Footer";
 import { useNavigate } from "react-router-dom";
-import { getExams, deleteExam } from "../../api/examAPI";
+import { getExams, deleteExam } from "../../../api/examAPI";
 
 const ExamBankPage = () => {
   const [exams, setExams] = useState([]);
