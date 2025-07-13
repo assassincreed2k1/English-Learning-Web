@@ -1,37 +1,68 @@
 const API_URL = "http://localhost:8080/api/assignments";
 
-// Hàm lấy token từ localStorage
-const getToken = () => localStorage.getItem("token");
-
-// Hàm tạo headers có token
-const getAuthHeaders = () => ({
-  "Content-Type": "application/json",
-  Authorization: `Bearer ${getToken()}`,
-});
+const getAuthHeaders = () => {
+  const token = localStorage.getItem("token");
+  return {
+    "Content-Type": "application/json",
+    Authorization: token ? `Bearer ${token}` : "",
+  };
+};
 
 export const getAssignments = async () => {
   const res = await fetch(API_URL, {
-    headers: { Authorization: `Bearer ${getToken()}` },
+    headers: getAuthHeaders(),
   });
-  if (!res.ok) throw new Error("Lấy danh sách bài tập thất bại");
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+};
+
+export const getAssignmentById = async (id) => {
+  const res = await fetch(`${API_URL}/${id}`, {
+    headers: getAuthHeaders(),
+  });
+  if (!res.ok) throw new Error(await res.text());
   return res.json();
 };
 
 export const addAssignment = async (data) => {
+  const payload = {
+    assignment: {
+      content: data.content,
+      description: data.description,
+      type: data.type,
+      timeLimit: data.timeLimit,
+      passage: data.passage,
+      audioUrl: data.audioUrl,
+    },
+    questionIds: data.questionIds
+  };
+
   const res = await fetch(API_URL, {
     method: "POST",
     headers: getAuthHeaders(),
-    body: JSON.stringify(data),
+    body: JSON.stringify(payload),
   });
   if (!res.ok) throw new Error(await res.text());
   return res.json();
 };
 
 export const updateAssignment = async (id, data) => {
+  const payload = {
+    assignment: {
+      content: data.content,
+      description: data.description,
+      type: data.type,
+      timeLimit: data.timeLimit,
+      passage: data.passage,
+      audioUrl: data.audioUrl,
+    },
+    questionIds: data.questions.map((q) => q.id),
+  };
+
   const res = await fetch(`${API_URL}/${id}`, {
     method: "PUT",
     headers: getAuthHeaders(),
-    body: JSON.stringify(data),
+    body: JSON.stringify(payload),
   });
   if (!res.ok) throw new Error(await res.text());
   return res.json();
@@ -40,7 +71,23 @@ export const updateAssignment = async (id, data) => {
 export const deleteAssignment = async (id) => {
   const res = await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
-    headers: { Authorization: `Bearer ${getToken()}` },
+    headers: getAuthHeaders(),
   });
-  if (!res.ok) throw new Error("Xoá bài tập thất bại");
+  if (!res.ok) throw new Error(await res.text());
+};
+
+export const searchAssignments = async (keyword) => {
+  const res = await fetch(`${API_URL}/search?keyword=${encodeURIComponent(keyword)}`, {
+    headers: getAuthHeaders(),
+  });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+};
+
+export const getAssignmentsByType = async (type) => {
+  const res = await fetch(`${API_URL}/type/${type}`, {
+    headers: getAuthHeaders(),
+  });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
 };

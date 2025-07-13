@@ -45,3 +45,22 @@ export const deleteQuestion = async (id) => {
   });
   if (!res.ok) throw new Error("Xoá câu hỏi thất bại");
 };
+
+export const searchQuestions = async (keyword) => {
+  const res = await fetch(
+    `${API_URL}/search?keyword=${encodeURIComponent(keyword)}`,
+    {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    }
+  );
+  if (!res.ok) throw new Error("Tìm kiếm câu hỏi thất bại");
+  return res.json();
+};
+
+export const getQuestionById = async (id) => {
+  const res = await fetch(`${API_URL}/${id}`, {
+    headers: { Authorization: `Bearer ${getToken()}` },
+  });
+  if (!res.ok) throw new Error("Lấy thông tin câu hỏi thất bại");
+  return res.json();
+};

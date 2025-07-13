@@ -58,4 +58,11 @@ public interface AssignmentRepository extends JpaRepository<Assignment, Long> {
     // Find assignments by question count
     @Query("SELECT a FROM Assignment a WHERE SIZE(a.questions) >= :minQuestions")
     List<Assignment> findAssignmentsWithMinQuestions(@Param("minQuestions") Integer minQuestions);
+
+    // Find assignments by content containing keyword
+    List<Assignment> findByContentContainingIgnoreCase(String content);
+    
+    // Find assignments by question id
+    @Query("SELECT a FROM Assignment a JOIN a.questions q WHERE q.id = :questionId")
+    List<Assignment> findByQuestionId(@Param("questionId") Long questionId);
 }
