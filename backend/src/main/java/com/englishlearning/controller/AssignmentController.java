@@ -1,148 +1,110 @@
 package com.englishlearning.controller;
 
-import java.util.List;
-
+import com.englishlearning.dto.AssignmentRequest;
 import com.englishlearning.model.system.Assignment;
-import com.englishlearning.model.system.Assignment.AssignmentType;
-import com.englishlearning.model.system.Question;
 import com.englishlearning.service.AssignmentService;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/assignments")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class AssignmentController {
 
-    private final AssignmentService assignmentService;
-
-    public AssignmentController(AssignmentService assignmentService) {
-        this.assignmentService = assignmentService;
-    }
+    @Autowired
+    private AssignmentService assignmentService;
 
     @GetMapping
     public ResponseEntity<List<Assignment>> getAllAssignments() {
-        return ResponseEntity.ok(assignmentService.getAllAssignments());
+        List<Assignment> assignments = assignmentService.getAllAssignments();
+        return ResponseEntity.ok(assignments);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Assignment> getAssignmentById(@PathVariable Long id) {
-        try {
-            Assignment assignment = assignmentService.getAssignmentById(id);
-            return ResponseEntity.ok(assignment);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @GetMapping("/search")
-    public ResponseEntity<List<Assignment>> searchAssignments(@RequestParam String keyword) {
-        List<Assignment> assignments = assignmentService.searchAssignments(keyword);
-        return ResponseEntity.ok(assignments);
+        Optional<Assignment> assignment = assignmentService.getAssignmentById(id);
+        return assignment.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Assignment> createAssignment(@RequestBody Assignment assignment) {
+    public ResponseEntity<Assignment> createAssignment(@RequestBody Map<String, Object> payload) {
         try {
-            Assignment saved = assignmentService.createAssignment(assignment);
+            Assignment assignment = new ObjectMapper().convertValue(payload.get("assignment"), Assignment.class);
+            List<?> rawIds = (List<?>) payload.get("questionIds");
+            System.out.println("questionIds raw: " + rawIds);
+            List<Long> questionIds = new java.util.ArrayList<>();
+            if (rawIds != null) {
+                for (Object id : rawIds) {
+                    System.out.println("Type: " + id.getClass() + ", Value: " + id);
+                    if (id instanceof Number) {
+                        questionIds.add(((Number) id).longValue());
+                    } else if (id instanceof String) {
+                        questionIds.add(Long.valueOf((String) id));
+                    } else {
+                        throw new IllegalArgumentException("Unsupported questionId type: " + id.getClass());
+                    }
+                }
+            }
+            Assignment saved = assignmentService.createAssignment(assignment, questionIds);
             return ResponseEntity.ok(saved);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Assignment> updateAssignment(@PathVariable Long id, @RequestBody Assignment assignment) {
+    public ResponseEntity<Assignment> updateAssignment(@PathVariable Long id, @RequestBody Map<String, Object> payload) {
         try {
-            Assignment updated = assignmentService.updateAssignment(id, assignment);
+            Assignment assignment = new ObjectMapper().convertValue(payload.get("assignment"), Assignment.class);
+            List<?> rawIds = (List<?>) payload.get("questionIds");
+            System.out.println("questionIds raw: " + rawIds);
+            List<Long> questionIds = new java.util.ArrayList<>();
+            if (rawIds != null) {
+                for (Object qid : rawIds) {
+                    System.out.println("Type: " + qid.getClass() + ", Value: " + qid);
+                    if (qid instanceof Number) {
+                        questionIds.add(((Number) qid).longValue());
+                    } else if (qid instanceof String) {
+                        questionIds.add(Long.valueOf((String) qid));
+                    } else {
+                        throw new IllegalArgumentException("Unsupported questionId type: " + qid.getClass());
+                    }
+                }
+            }
+            Assignment updated = assignmentService.updateAssignment(id, assignment, questionIds);
             return ResponseEntity.ok(updated);
         } catch (Exception e) {
-            return ResponseEntity.notFound().build();
+            e.printStackTrace();
+            return ResponseEntity.status(org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAssignment(@PathVariable Long id) {
         try {
-            assignmentService.deleteAssignmentById(id);
+            assignmentService.deleteAssignment(id);
             return ResponseEntity.noContent().build();
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();
         }
     }
 
-    // Filter endpoints
     @GetMapping("/type/{type}")
-    public ResponseEntity<List<Assignment>> getAssignmentsByType(@PathVariable AssignmentType type) {
+    public ResponseEntity<List<Assignment>> getAssignmentsByType(@PathVariable Assignment.AssignmentType type) {
         List<Assignment> assignments = assignmentService.getAssignmentsByType(type);
         return ResponseEntity.ok(assignments);
     }
 
-    @GetMapping("/with-time-limit")
-    public ResponseEntity<List<Assignment>> getAssignmentsWithTimeLimit() {
-        List<Assignment> assignments = assignmentService.getAssignmentsWithTimeLimit();
+    @GetMapping("/search")
+    public ResponseEntity<List<Assignment>> searchAssignments(@RequestParam String keyword) {
+        List<Assignment> assignments = assignmentService.searchAssignments(keyword);
         return ResponseEntity.ok(assignments);
-    }
-
-    @GetMapping("/listening")
-    public ResponseEntity<List<Assignment>> getListeningAssignments() {
-        List<Assignment> assignments = assignmentService.getListeningAssignments();
-        return ResponseEntity.ok(assignments);
-    }
-
-    @GetMapping("/reading")
-    public ResponseEntity<List<Assignment>> getReadingAssignments() {
-        List<Assignment> assignments = assignmentService.getReadingAssignments();
-        return ResponseEntity.ok(assignments);
-    }
-
-    @GetMapping("/time-range")
-    public ResponseEntity<List<Assignment>> getAssignmentsByTimeRange(
-            @RequestParam Integer minTime,
-            @RequestParam Integer maxTime) {
-        List<Assignment> assignments = assignmentService.getAssignmentsByTimeRange(minTime, maxTime);
-        return ResponseEntity.ok(assignments);
-    }
-
-    // Assignment-Question relationship endpoints
-    @PostMapping("/{assignmentId}/questions/{questionId}")
-    public ResponseEntity<Assignment> addQuestionToAssignment(
-            @PathVariable Long assignmentId,
-            @PathVariable Long questionId) {
-        try {
-            Assignment assignment = assignmentService.addQuestionToAssignment(assignmentId, questionId);
-            return ResponseEntity.ok(assignment);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @DeleteMapping("/{assignmentId}/questions/{questionId}")
-    public ResponseEntity<Assignment> removeQuestionFromAssignment(
-            @PathVariable Long assignmentId,
-            @PathVariable Long questionId) {
-        try {
-            Assignment assignment = assignmentService.removeQuestionFromAssignment(assignmentId, questionId);
-            return ResponseEntity.ok(assignment);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @GetMapping("/{assignmentId}/questions")
-    public ResponseEntity<List<Question>> getQuestionsByAssignmentId(@PathVariable Long assignmentId) {
-        try {
-            List<Question> questions = assignmentService.getQuestionsByAssignmentId(assignmentId);
-            return ResponseEntity.ok(questions);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    // Utility endpoints
-    @GetMapping("/types")
-    public ResponseEntity<AssignmentType[]> getAllAssignmentTypes() {
-        return ResponseEntity.ok(AssignmentType.values());
     }
 }

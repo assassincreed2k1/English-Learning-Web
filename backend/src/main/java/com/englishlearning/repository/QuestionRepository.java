@@ -14,4 +14,11 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     // Find by category
     List<Question> findByCategory(String category);
+    
+    // Search questions by content
+    List<Question> findByContentContainingIgnoreCase(String content);
+    
+    // Search questions by keyword in content, topic, or category
+    List<Question> findByContentContainingIgnoreCaseOrTopicContainingIgnoreCaseOrCategoryContainingIgnoreCase(
+        String content, String topic, String category);
 }

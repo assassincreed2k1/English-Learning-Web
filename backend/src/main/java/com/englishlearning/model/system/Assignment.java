@@ -38,6 +38,10 @@ public class Assignment extends BaseEntity {
     @JoinTable(name = "assignment_questions", joinColumns = @JoinColumn(name = "assignment_id"), inverseJoinColumns = @JoinColumn(name = "question_id"))
     private List<Question> questions = new ArrayList<>();
 
+    // Many assignments can belong to many exams
+    @ManyToMany(mappedBy = "examAssignments")
+    private List<Exam> exams = new ArrayList<>();
+
     public enum AssignmentType {
         VOCABULARY("Vocabulary Exercise"),
         GRAMMAR("Grammar Exercise"),
