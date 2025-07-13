@@ -18,50 +18,42 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Assignment extends BaseEntity {
+    private String content; // Tên bài tập
+    private String description; // Mô tả bài tập
     private Integer quantity = 0;
-    private String content;
-    private String description;
 
+    // Thêm thời gian làm bài cho assignment
+    private Integer timeLimit; // phút
+
+    // Thêm passage cho reading comprehension
+    private String passage;
+
+    // Thêm audio URL cho listening
+    private String audioUrl;
 
     @Enumerated(EnumType.STRING)
-    private Type type;
+    private AssignmentType type;
 
     @ManyToMany
-    @JoinTable(
-            name = "assignment_questions",
-            joinColumns = @JoinColumn(name = "assignment_id"),
-            inverseJoinColumns = @JoinColumn(name = "question_id")
-    )
+    @JoinTable(name = "assignment_questions", joinColumns = @JoinColumn(name = "assignment_id"), inverseJoinColumns = @JoinColumn(name = "question_id"))
     private List<Question> questions = new ArrayList<>();
 
+    public enum AssignmentType {
+        VOCABULARY("Vocabulary Exercise"),
+        GRAMMAR("Grammar Exercise"),
+        PRONUNCIATION("Pronunciation Exercise"),
+        LISTENING("Listening Comprehension"),
+        READING("Reading Comprehension"),
+        MIXED("Mixed Exercise");
 
-    public void setType(Type type) {
-        this.type = type;
-        setDescription();
-    }
+        private final String displayName;
 
-    private void setDescription() {
-        if (this.type == null) {
-            this.description = "No specific requirement.";
-            return;
+        AssignmentType(String displayName) {
+            this.displayName = displayName;
         }
 
-        switch (this.type) {
-            case PRONUNCIATION:
-                this.description = "Choose the word whose pronunciation is different from the others.";
-                break;
-            case READING:
-                this.description = "Read the passage and answer the questions.";
-                break;
-            case LISTENING:
-                this.description = "Listen to the audio and choose the correct answer.";
-                break;
-            default:
-                this.description = "Choose the correct answer.";
+        public String getDisplayName() {
+            return displayName;
         }
-    }
-
-    public enum Type {
-        PRONUNCIATION, READING, LISTENING
     }
 }
