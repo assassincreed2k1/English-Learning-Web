@@ -24,7 +24,7 @@ const EditExercisePage = () => {
         const assignment = assignments.find((a) => String(a.id) === String(id));
         if (!assignment) {
           alert("Không tìm thấy bài tập!");
-          navigate("/exercise-bank");
+          navigate("/admin/exercise-bank");
           return;
         }
         setExerciseTitle(assignment.content || "");
@@ -36,7 +36,7 @@ const EditExercisePage = () => {
         setQuestions(qs);
       } catch (err) {
         alert("Lỗi tải dữ liệu!");
-        navigate("/exercise-bank");
+        navigate("/admin/exercise-bank");
       }
       setLoading(false);
     };
@@ -65,7 +65,7 @@ const EditExercisePage = () => {
         quantity: selectedQuestions.length,
       });
       alert("Đã cập nhật bài tập!");
-      navigate("/exercise-bank");
+      navigate("/admin/exercise-bank");
     } catch (err) {
       alert("Cập nhật bài tập thất bại!");
     }
@@ -100,6 +100,7 @@ const EditExercisePage = () => {
             <option value="READING">Đọc hiểu</option>
             <option value="PRONUNCIATION">Phát âm</option>
             <option value="LISTENING">Nghe hiểu</option>
+            <option value="">Chọn đáp án đúng</option>
           </select>
           <button
             type="submit"

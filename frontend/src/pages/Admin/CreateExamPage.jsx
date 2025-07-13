@@ -51,7 +51,7 @@ const CreateExamPage = () => {
         examAssignments: selectedAssignments,
       });
       alert("Đã tạo đề thi mới!");
-      navigate("/exam-bank");
+      navigate("/admin/exam-bank");
     } catch (err) {
       alert("Tạo đề thi thất bại!");
     }
@@ -157,8 +157,4 @@ const CreateExamPage = () => {
   );
 };
 
-<<<<<<< HEAD
 export default CreateExamPage;
-=======
-export default CreateExamPage;
->>>>>>> origin

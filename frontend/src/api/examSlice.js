@@ -1,12 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// Hàm lấy token từ localStorage
+const getToken = () => localStorage.getItem("token");
+
+// Hàm tạo headers có token
+const getAuthHeaders = () => ({
+  Authorization: `Bearer ${getToken()}`,
+});
+
 // Lấy danh sách tất cả đề thi
 export const fetchExams = createAsyncThunk(
   "exam/fetchExams",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get("http://localhost:8080/api/exams");
+      const res = await axios.get("http://localhost:8080/api/exams", {
+        headers: getAuthHeaders(),
+      });
       return res.data.result || res.data; // tuỳ backend trả về
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || "Lỗi tải danh sách đề thi");
@@ -19,7 +29,9 @@ export const fetchExamById = createAsyncThunk(
   "exam/fetchExamById",
   async (examId, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`http://localhost:8080/api/exams/${examId}`);
+      const res = await axios.get(`http://localhost:8080/api/exams/${examId}`, {
+        headers: getAuthHeaders(),
+      });
       return res.data.result || res.data;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || "Lỗi tải chi tiết đề thi");
@@ -32,11 +44,10 @@ export const createExam = createAsyncThunk(
   "exam/createExam",
   async (examData, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("token");
       const res = await axios.post(
         "http://localhost:8080/api/exams",
         examData,
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: getAuthHeaders() }
       );
       return res.data.result || res.data;
     } catch (err) {

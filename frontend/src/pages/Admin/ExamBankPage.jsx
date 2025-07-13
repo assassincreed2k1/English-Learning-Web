@@ -39,7 +39,7 @@ const ExamBankPage = () => {
   };
 
   const handleEdit = (id) => {
-    navigate(`/edit-exam/${id}`);
+    navigate(`/admin/edit-exam/${id}`);
   };
 
   return (
@@ -50,7 +50,7 @@ const ExamBankPage = () => {
           <h1 className="text-3xl font-bold text-gray-800">Ngân hàng đề thi</h1>
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
-            onClick={() => navigate("/exam-bank/create")}
+            onClick={() => navigate("/admin/exam-bank/create")}
           >
             ➕ Thêm đề thi
           </button>
