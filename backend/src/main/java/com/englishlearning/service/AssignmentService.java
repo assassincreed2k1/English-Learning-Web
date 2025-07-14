@@ -20,35 +20,40 @@ public class AssignmentService {
         if (assignment.getContent() == null || assignment.getContent().trim().isEmpty()) {
             throw new IllegalArgumentException("Assignment content cannot be empty");
         }
-        
+
         // Set quantity based on questions
         if (assignment.getQuestions() != null) {
             assignment.setQuantity(assignment.getQuestions().size());
         } else {
             assignment.setQuantity(0);
         }
-        
+
+        // Ensure timeLimit and passage are set (even if null)
+        assignment.setTimeLimit(assignment.getTimeLimit());
+        assignment.setPassage(assignment.getPassage());
+        assignment.setAudioUrl(assignment.getAudioUrl());
+
         return assignmentRepository.save(assignment);
     }
 
     public Assignment updateAssignment(Long id, Assignment assignment) {
         Assignment existing = assignmentRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Assignment not found with id: " + id));
-        
-        // Update basic fields
+
+        // Update all fields
         existing.setContent(assignment.getContent());
         existing.setDescription(assignment.getDescription());
         existing.setType(assignment.getType());
         existing.setTimeLimit(assignment.getTimeLimit());
         existing.setPassage(assignment.getPassage());
         existing.setAudioUrl(assignment.getAudioUrl());
-        
+
         // Update questions if provided
         if (assignment.getQuestions() != null) {
             existing.setQuestions(assignment.getQuestions());
             existing.setQuantity(assignment.getQuestions().size());
         }
-        
+
         return assignmentRepository.save(existing);
     }
 
