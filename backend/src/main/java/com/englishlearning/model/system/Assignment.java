@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import com.englishlearning.model.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Assignment extends BaseEntity {
     private String content; // Tên bài tập
     private String description; // Mô tả bài tập
@@ -36,10 +38,12 @@ public class Assignment extends BaseEntity {
 
     @ManyToMany
     @JoinTable(name = "assignment_questions", joinColumns = @JoinColumn(name = "assignment_id"), inverseJoinColumns = @JoinColumn(name = "question_id"))
+    @JsonIgnoreProperties({"assignments"})
     private List<Question> questions = new ArrayList<>();
 
     // Many assignments can belong to many exams
     @ManyToMany(mappedBy = "examAssignments")
+    @JsonIgnoreProperties({"examAssignments"})
     private List<Exam> exams = new ArrayList<>();
 
     public enum AssignmentType {

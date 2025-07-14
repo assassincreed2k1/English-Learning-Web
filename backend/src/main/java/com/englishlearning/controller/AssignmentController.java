@@ -1,16 +1,12 @@
 package com.englishlearning.controller;
 
-import com.englishlearning.dto.AssignmentRequest;
 import com.englishlearning.model.system.Assignment;
 import com.englishlearning.service.AssignmentService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/assignments")
@@ -22,67 +18,43 @@ public class AssignmentController {
 
     @GetMapping
     public ResponseEntity<List<Assignment>> getAllAssignments() {
-        List<Assignment> assignments = assignmentService.getAllAssignments();
-        return ResponseEntity.ok(assignments);
+        try {
+            List<Assignment> assignments = assignmentService.getAllAssignments();
+            return ResponseEntity.ok(assignments);
+        } catch (Exception e) {
+            e.printStackTrace(); // Log error for debugging
+            return ResponseEntity.status(500).build();
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Assignment> getAssignmentById(@PathVariable Long id) {
-        Optional<Assignment> assignment = assignmentService.getAssignmentById(id);
-        return assignment.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        try {
+            Assignment assignment = assignmentService.getAssignmentById(id);
+            return ResponseEntity.ok(assignment);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
-    public ResponseEntity<Assignment> createAssignment(@RequestBody Map<String, Object> payload) {
+    public ResponseEntity<Assignment> createAssignment(@RequestBody Assignment assignment) {
         try {
-            Assignment assignment = new ObjectMapper().convertValue(payload.get("assignment"), Assignment.class);
-            List<?> rawIds = (List<?>) payload.get("questionIds");
-            System.out.println("questionIds raw: " + rawIds);
-            List<Long> questionIds = new java.util.ArrayList<>();
-            if (rawIds != null) {
-                for (Object id : rawIds) {
-                    System.out.println("Type: " + id.getClass() + ", Value: " + id);
-                    if (id instanceof Number) {
-                        questionIds.add(((Number) id).longValue());
-                    } else if (id instanceof String) {
-                        questionIds.add(Long.valueOf((String) id));
-                    } else {
-                        throw new IllegalArgumentException("Unsupported questionId type: " + id.getClass());
-                    }
-                }
-            }
-            Assignment saved = assignmentService.createAssignment(assignment, questionIds);
+            Assignment saved = assignmentService.createAssignment(assignment);
             return ResponseEntity.ok(saved);
         } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            e.printStackTrace(); // Log error for debugging
+            return ResponseEntity.status(500).body(null);
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Assignment> updateAssignment(@PathVariable Long id, @RequestBody Map<String, Object> payload) {
+    public ResponseEntity<Assignment> updateAssignment(@PathVariable Long id, @RequestBody Assignment assignment) {
         try {
-            Assignment assignment = new ObjectMapper().convertValue(payload.get("assignment"), Assignment.class);
-            List<?> rawIds = (List<?>) payload.get("questionIds");
-            System.out.println("questionIds raw: " + rawIds);
-            List<Long> questionIds = new java.util.ArrayList<>();
-            if (rawIds != null) {
-                for (Object qid : rawIds) {
-                    System.out.println("Type: " + qid.getClass() + ", Value: " + qid);
-                    if (qid instanceof Number) {
-                        questionIds.add(((Number) qid).longValue());
-                    } else if (qid instanceof String) {
-                        questionIds.add(Long.valueOf((String) qid));
-                    } else {
-                        throw new IllegalArgumentException("Unsupported questionId type: " + qid.getClass());
-                    }
-                }
-            }
-            Assignment updated = assignmentService.updateAssignment(id, assignment, questionIds);
+            Assignment updated = assignmentService.updateAssignment(id, assignment);
             return ResponseEntity.ok(updated);
         } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            return ResponseEntity.badRequest().build();
         }
     }
 
@@ -91,7 +63,7 @@ public class AssignmentController {
         try {
             assignmentService.deleteAssignment(id);
             return ResponseEntity.noContent().build();
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }

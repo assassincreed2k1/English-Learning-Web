@@ -64,32 +64,27 @@ const CreateExercisePage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     if (!exerciseTitle.trim()) {
       alert("Vui lòng nhập tên bài tập!");
       return;
     }
-    
     if (selectedQuestions.length === 0) {
       alert("Vui lòng chọn ít nhất một câu hỏi!");
       return;
     }
-
     try {
       await addAssignment({
         content: exerciseTitle,
         description: exerciseDesc,
         type: exerciseType,
-        timeLimit: timeLimit ? parseInt(timeLimit) : null,
-        passage: passage,
-        audioUrl: audioUrl,
-        questionIds: selectedQuestions.map(q => Number(q.id)),
+        questions: selectedQuestions,
+        quantity: selectedQuestions.length,
       });
       alert("Đã tạo bài tập mới thành công!");
       navigate("/admin/exercise-bank");
     } catch (error) {
       console.error("Error creating assignment:", error);
-      alert("Lỗi khi tạo bài tập!");
+      alert("Lỗi khi tạo bài tập!\n" + (error?.message || ""));
     }
   };
 

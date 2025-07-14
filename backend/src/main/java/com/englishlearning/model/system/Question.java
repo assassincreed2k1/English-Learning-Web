@@ -1,8 +1,8 @@
-
 package com.englishlearning.model.system;
 
 import com.englishlearning.model.BaseEntity;
 import com.englishlearning.model.user.SubmissionAnswer;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Entity;
@@ -20,6 +20,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Question extends BaseEntity {
     private String content;
     private String optionA;
@@ -36,10 +37,12 @@ public class Question extends BaseEntity {
 
     // Many questions can belong to many assignments
     @ManyToMany(mappedBy = "questions")
+    @JsonIgnoreProperties({"questions"})
     private java.util.List<Assignment> assignments;
 
     // One question can have many submission answers
     @OneToMany(mappedBy = "question")
+    @JsonIgnoreProperties({"question"})
     private java.util.List<SubmissionAnswer> submissionAnswers;
 
     public enum AnswerOption {
