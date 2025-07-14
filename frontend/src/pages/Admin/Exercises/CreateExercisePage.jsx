@@ -77,6 +77,9 @@ const CreateExercisePage = () => {
         content: exerciseTitle,
         description: exerciseDesc,
         type: exerciseType,
+        timeLimit: timeLimit ? Number(timeLimit) : null,
+        passage: passage || null,
+        audioUrl: audioUrl || null,
         questions: selectedQuestions,
         quantity: selectedQuestions.length,
       });
@@ -247,16 +250,18 @@ const CreateExercisePage = () => {
                   </div>
                 ) : (
                   questions.map((question) => (
-                    <div key={question.id} className="border rounded-lg p-4 mb-3">
-                      <div className="font-medium mb-2">{question.content}</div>
-                      <div className="text-sm text-gray-600 mb-2">
-                        <div>A. {question.optionA}</div>
-                        <div>B. {question.optionB}</div>
-                        <div>C. {question.optionC}</div>
-                        <div>D. {question.optionD}</div>
-                      </div>
-                      <div className="text-sm text-green-600 mb-2">
-                        Đáp án: {question.correctAnswer}. {getCorrectAnswerText(question)}
+                    <div key={question.id} className="border rounded-lg p-4 mb-3 flex justify-between items-center">
+                      <div className="flex-1">
+                        <div className="font-medium mb-2">{question.content}</div>
+                        <div className="text-sm text-gray-600 mb-2">
+                          <div>A. {question.optionA}</div>
+                          <div>B. {question.optionB}</div>
+                          <div>C. {question.optionC}</div>
+                          <div>D. {question.optionD}</div>
+                        </div>
+                        <div className="text-sm text-green-600">
+                          Đáp án: {question.correctAnswer}. {getCorrectAnswerText(question)}
+                        </div>
                       </div>
                       <button
                         onClick={() => handleAddQuestion(question)}
