@@ -25,44 +25,20 @@ export const getAssignmentById = async (id) => {
 };
 
 export const addAssignment = async (data) => {
-  const payload = {
-    assignment: {
-      content: data.content,
-      description: data.description,
-      type: data.type,
-      timeLimit: data.timeLimit,
-      passage: data.passage,
-      audioUrl: data.audioUrl,
-    },
-    questionIds: data.questionIds
-  };
-
   const res = await fetch(API_URL, {
     method: "POST",
     headers: getAuthHeaders(),
-    body: JSON.stringify(payload),
+    body: JSON.stringify(data),
   });
   if (!res.ok) throw new Error(await res.text());
   return res.json();
 };
 
 export const updateAssignment = async (id, data) => {
-  const payload = {
-    assignment: {
-      content: data.content,
-      description: data.description,
-      type: data.type,
-      timeLimit: data.timeLimit,
-      passage: data.passage,
-      audioUrl: data.audioUrl,
-    },
-    questionIds: data.questions.map((q) => q.id),
-  };
-
   const res = await fetch(`${API_URL}/${id}`, {
     method: "PUT",
     headers: getAuthHeaders(),
-    body: JSON.stringify(payload),
+    body: JSON.stringify(data),
   });
   if (!res.ok) throw new Error(await res.text());
   return res.json();
