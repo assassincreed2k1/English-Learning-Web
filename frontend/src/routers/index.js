@@ -15,6 +15,7 @@ import CreateExercisePage from "../pages/Admin/Exercises/CreateExercisePage";
 import AssignmentDetailPage from "../pages/Admin/Exercises/AssignmentDetailPage";
 import ExamBankPage from "../pages/Admin/Exams/ExamBankPage";
 import CreateExamPage from "../pages/Admin/Exams/CreateExamPage";
+import ExamDetailPage from "../pages/Admin/Exams/ExamDetailPage";
 import EditExamPage from "../pages/Admin/Exams/EditExamPage";
 
 const AppRouter = () => {
@@ -33,6 +34,7 @@ const AppRouter = () => {
       <Route path="/admin/assignments/:id" element={<AssignmentDetailPage />} />
       <Route path="/admin/exam-bank" element={<ExamBankPage />} />
       <Route path="/admin/exam-bank/create" element={<CreateExamPage />} />
+      <Route path="/admin/exam-details/:id" element={<ExamDetailPage />} />
       <Route path="/admin/edit-exam/:id" element={<EditExamPage />} />
     </Routes>
   );
