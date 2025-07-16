@@ -39,7 +39,6 @@ const QuestionBankPage = () => {
     { value: "VOCABULARY", label: "Từ vựng" },
     { value: "LISTENING", label: "Nghe" },
     { value: "READING", label: "Đọc" },
-    { value: "SPEAKING", label: "Nói" },
     { value: "WRITING", label: "Viết" }
   ];
 
