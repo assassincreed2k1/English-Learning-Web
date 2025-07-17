@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Header from "../../components/Admin/Header";
-import Footer from "../../components/Admin/Footer";
-import { getAssignments } from "../../api/assignmentApi";
+import Header from "../../../components/Admin/Header";
+import Footer from "../../../components/Admin/Footer";
+import { getAssignments } from "../../../api/assignmentApi";
 import { useNavigate, useParams } from "react-router-dom";
-import { getExamById, updateExam } from "../../api/examAPI";
+import { getExamById, updateExam } from "../../../api/examAPI";
 
 const examTypeOptions = [
   { value: "VOCABULARY", label: "Từ vựng" },

@@ -1,35 +1,24 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchExams } from "../../api/examSlice";
 
 const ExamList = () => {
-  const [exams, setExams] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const dispatch = useDispatch();
+  const { exams, loading, error } = useSelector((state) => state.exam);
 
   useEffect(() => {
-    const fetchExams = async () => {
-      try {
-        const res = await axios.get("http://localhost:8080/api/exams");
-        setExams(res.data.result || []);
-      } catch (err) {
-        setError("Không thể tải danh sách đề thi.");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchExams();
-  }, []);
+    dispatch(fetchExams());
+  }, [dispatch]);
 
   if (loading) return <div className="text-center py-8">Đang tải...</div>;
-  if (error)
-    return <div className="text-center text-red-500 py-8">{error}</div>;
+  if (error) return <div className="text-center text-red-500 py-8">{error}</div>;
 
   return (
     <div className="max-w-3xl mx-auto py-8">
       <h2 className="text-2xl font-bold mb-6 text-blue-600 text-center">
         Danh sách đề thi
       </h2>
-      {exams.length === 0 ? (
+      {(!exams || exams.length === 0) ? (
         <div className="text-center text-gray-500">Chưa có đề thi nào.</div>
       ) : (
         <ul className="space-y-4">

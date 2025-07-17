@@ -40,7 +40,9 @@ public class SubmissionService {
         int numberCorrect=0;
         for(SubmissionAnswer submissionAnswer : submissionAnswers) {
             Question question = submissionAnswer.getQuestion();
-            if(submissionAnswer.getAnswerOption().equals(question.getCorrectAnswer())){
+            String userAnswer = submissionAnswer.getAnswer();
+            // Compare user's answer (string) with correctAnswer enum name
+            if(userAnswer != null && question.getCorrectAnswer() != null && userAnswer.trim().equalsIgnoreCase(question.getCorrectAnswer().name())){
                 numberCorrect++;
             }
         }

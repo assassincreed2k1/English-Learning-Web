@@ -5,6 +5,7 @@ import com.englishlearning.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,8 +51,14 @@ public class UserService {
         Object principal = authentication.getPrincipal();
         if (principal instanceof UserDetails) {
             String email = ((UserDetails) principal).getUsername();
+            System.out.println(principal);
             return userRepository.findByEmail(email);
-        }
+        } else if (principal instanceof Jwt jwt) {
+               String email= jwt.getSubject();
+            return userRepository.findByEmail(email);
+         } else if (principal instanceof String s) {
+            return userRepository.findByEmail(s);
+         }
 
         throw new RuntimeException("Không thể xác định user hiện tại");
     }

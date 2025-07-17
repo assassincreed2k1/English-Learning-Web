@@ -2,14 +2,15 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./routers"; // hoặc "./routers/index"
-
+import { Provider } from "react-redux";
+import store from "./store"; 
 function App() {
   return (
-    <BrowserRouter>
-      {" "}
-      {/* Chỉ ở đây dùng */}
-      <AppRouter />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
+    </Provider>
   );
 }
 

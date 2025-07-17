@@ -1,10 +1,10 @@
+
 package com.englishlearning.service;
 
 import com.englishlearning.model.system.Question;
+import com.englishlearning.model.system.Question.AnswerOption;
 import com.englishlearning.repository.QuestionRepository;
-
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -16,6 +16,16 @@ public class QuestionService {
     }
 
     public Question createQuestion(Question question) {
+        if (question.getContent() == null || question.getContent().trim().isEmpty()) {
+            throw new IllegalArgumentException("Question content cannot be empty");
+        }
+        if (question.getOptionA() == null || question.getOptionB() == null || question.getOptionC() == null || question.getOptionD() == null) {
+            throw new IllegalArgumentException("All options (A-D) are required");
+        }
+        if (question.getCorrectAnswer() == null) {
+            throw new IllegalArgumentException("Correct answer must be one of: A, B, C, D");
+        }
+        // No points field anymore
         return questionRepository.save(question);
     }
 
@@ -27,7 +37,9 @@ public class QuestionService {
         question.setOptionC(request.getOptionC());
         question.setOptionD(request.getOptionD());
         question.setCorrectAnswer(request.getCorrectAnswer());
-        question.setQuestionType(request.getQuestionType()); 
+        question.setTopic(request.getTopic());
+        question.setExplanation(request.getExplanation());
+        question.setCategory(request.getCategory());
         return questionRepository.save(question);
     }
 
@@ -36,11 +48,21 @@ public class QuestionService {
     }
 
     public Question getQuestionById(Long id) throws Exception {
-        Question question = questionRepository.findById(id).orElseThrow(() -> new Exception("Question not found"));
-        return question;
+        return questionRepository.findById(id)
+                .orElseThrow(() -> new Exception("Question not found with id: " + id));
     }
 
     public void deleteQuestionById(Long id) {
         questionRepository.deleteById(id);
     }
+
+    public List<Question> getQuestionsByTopic(String topic) {
+        return questionRepository.findByTopic(topic);
+    }
+
+    public List<Question> getQuestionsByCategory(String category) {
+        return questionRepository.findByCategory(category);
+    }
+
+    // Removed getQuestionsByPoints
 }

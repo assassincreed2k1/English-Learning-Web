@@ -1,5 +1,7 @@
 package com.englishlearning.model.system;
 
+import java.util.List;
+
 import com.englishlearning.model.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -16,4 +18,6 @@ import lombok.Setter;
 public class VocabularyLesson extends BaseEntity {
     private String name;
     private String image;
+
+    // private List<Vocabulary> vocabularyList;
 }
