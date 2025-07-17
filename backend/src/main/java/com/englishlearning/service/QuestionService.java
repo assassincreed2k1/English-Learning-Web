@@ -64,5 +64,10 @@ public class QuestionService {
         return questionRepository.findByCategory(category);
     }
 
-    // Removed getQuestionsByPoints
+    public List<Question> searchQuestions(String keyword) {
+        return questionRepository
+                .findByContentContainingIgnoreCaseOrTopicContainingIgnoreCaseOrCategoryContainingIgnoreCase(
+                        keyword, keyword, keyword);
+    }
+
 }

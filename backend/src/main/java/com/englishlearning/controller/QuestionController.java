@@ -78,4 +78,10 @@ public class QuestionController {
         List<Question> questions = questionService.getQuestionsByCategory(category);
         return ResponseEntity.ok(questions);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Question>> searchQuestions(@RequestParam String keyword) {
+        List<Question> questions = questionService.searchQuestions(keyword);
+        return ResponseEntity.ok(questions);
+    }
 }
