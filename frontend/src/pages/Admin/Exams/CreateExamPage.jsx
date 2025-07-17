@@ -7,18 +7,18 @@ import { useNavigate } from "react-router-dom";
 import { addExam } from "../../../api/examAPI";
 
 const examTypeOptions = [
-  { value: "VOCABULARY", label: "Từ vựng" },
-  { value: "GRAMMAR", label: "Ngữ pháp" },
-  { value: "LISTENING", label: "Nghe hiểu" },
-  { value: "READING", label: "Đọc hiểu" },
-  { value: "MIXED", label: "Hỗn hợp" },
-  { value: "MOCK_TEST", label: "Thi thử" },
+  { value: "VOCABULARY", label: "Vocabulary" },
+  { value: "GRAMMAR", label: "Grammar" },
+  { value: "LISTENING", label: "Listening Comprehension" },
+  { value: "READING", label: "Reading Comprehension" },
+  { value: "MIXED", label: "Mixed" },
+  { value: "MOCK_TEST", label: "Mock Test" },
 ];
 
 const difficultyOptions = [
-  { value: "BEGINNER", label: "Cơ bản" },
-  { value: "INTERMEDIATE", label: "Trung bình" },
-  { value: "ADVANCED", label: "Nâng cao" },
+  { value: "BEGINNER", label: "Beginner" },
+  { value: "INTERMEDIATE", label: "Intermediate" },
+  { value: "ADVANCED", label: "Advanced" },
 ];
 
 const CreateExamPage = () => {

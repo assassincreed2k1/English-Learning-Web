@@ -8,33 +8,33 @@ const defaultData = {
   optionD: "",
   correctAnswer: "A",
   topic: "VOCABULARY",
-  category: "Động vật",
+  category: "Animals",
   explanation: ""
 };
 const categoryOptions = [
-  { value: "Động vật", label: "Động vật" },
-  { value: "Cây cối", label: "Cây cối" },
-  { value: "Sinh hoạt", label: "Sinh hoạt" },
-  { value: "Công việc", label: "Công việc" },
-  { value: "Địa điểm", label: "Địa điểm" },
-  { value: "Thời tiết", label: "Thời tiết" },
-  { value: "Sức khoẻ", label: "Sức khoẻ" },
-  { value: "Gia đình", label: "Gia đình" },
-  { value: "Thực phẩm", label: "Thực phẩm" },
-  { value: "Khác", label: "Khác" }
+  { value: "Animals", label: "Animals" },
+  { value: "Plants", label: "Plants" },
+  { value: "Daily Life", label: "Daily Life" },
+  { value: "Jobs", label: "Jobs" },
+  { value: "Places", label: "Places" },
+  { value: "Weather", label: "Weather" },
+  { value: "Health", label: "Health" },
+  { value: "Family", label: "Family" },
+  { value: "Food", label: "Food" },
+  { value: "Other", label: "Other" }
 ];
 
 const topicOptions = [
-  { value: "VOCABULARY", label: "Từ vựng" },
-  { value: "GRAMMAR", label: "Ngữ pháp" },
-  { value: "PRONUNCIATION", label: "Phát âm" },
-  { value: "LISTENING", label: "Nghe" },
-  { value: "READING_COMPREHENSION", label: "Đọc hiểu" },
-  { value: "TENSES", label: "Thì" },
-  { value: "PREPOSITIONS", label: "Giới từ" },
-  { value: "PHRASAL_VERBS", label: "Cụm động từ" },
-  { value: "IDIOMS", label: "Thành ngữ" },
-  { value: "BUSINESS_ENGLISH", label: "Tiếng Anh thương mại" },
+  { value: "VOCABULARY", label: "Vocabulary" },
+  { value: "GRAMMAR", label: "Grammar" },
+  { value: "PRONUNCIATION", label: "Pronunciation" },
+  { value: "LISTENING", label: "Listening" },
+  { value: "READING_COMPREHENSION", label: "Reading Comprehension" },
+  { value: "TENSES", label: "Tenses" },
+  { value: "PREPOSITIONS", label: "Prepositions" },
+  { value: "PHRASAL_VERBS", label: "Phrasal Verbs" },
+  { value: "IDIOMS", label: "Idioms" },
+  { value: "BUSINESS_ENGLISH", label: "Business English" },
 ];
 
 const QuestionFormModal = ({ show, onClose, onSubmit, initialData }) => {
@@ -64,11 +64,11 @@ const QuestionFormModal = ({ show, onClose, onSubmit, initialData }) => {
     <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-lg w-full max-w-lg">
         <h2 className="text-xl font-bold mb-4">
-          {initialData ? "Sửa câu hỏi" : "Thêm câu hỏi"}
+          {initialData ? "Edit Question" : "Add Question"}
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block font-medium">Nội dung</label>
+            <label className="block font-medium">Content</label>
             <textarea
               name="content"
               value={form.content}
@@ -79,7 +79,7 @@ const QuestionFormModal = ({ show, onClose, onSubmit, initialData }) => {
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <label>Đáp án A</label>
+              <label>Answer A</label>
               <input
                 name="optionA"
                 value={form.optionA}
@@ -89,7 +89,7 @@ const QuestionFormModal = ({ show, onClose, onSubmit, initialData }) => {
               />
             </div>
             <div>
-              <label>Đáp án B</label>
+              <label>Answer B</label>
               <input
                 name="optionB"
                 value={form.optionB}
@@ -99,7 +99,7 @@ const QuestionFormModal = ({ show, onClose, onSubmit, initialData }) => {
               />
             </div>
             <div>
-              <label>Đáp án C</label>
+              <label>Answer C</label>
               <input
                 name="optionC"
                 value={form.optionC}
@@ -109,7 +109,7 @@ const QuestionFormModal = ({ show, onClose, onSubmit, initialData }) => {
               />
             </div>
             <div>
-              <label>Đáp án D</label>
+              <label>Answer D</label>
               <input
                 name="optionD"
                 value={form.optionD}
@@ -120,7 +120,7 @@ const QuestionFormModal = ({ show, onClose, onSubmit, initialData }) => {
             </div>
           </div>
           <div>
-            <label className="block font-medium">Đáp án đúng</label>
+            <label className="block font-medium">Correct Answer</label>
             <select
               name="correctAnswer"
               value={form.correctAnswer}
@@ -135,7 +135,7 @@ const QuestionFormModal = ({ show, onClose, onSubmit, initialData }) => {
             </select>
           </div>
           <div>
-            <label className="block font-medium">Chủ đề</label>
+            <label className="block font-medium">Topic</label>
             <select
               name="topic"
               value={form.topic}
@@ -151,7 +151,7 @@ const QuestionFormModal = ({ show, onClose, onSubmit, initialData }) => {
             </select>
           </div>
           <div>
-            <label className="block font-medium">Phân loại chủ đề</label>
+            <label className="block font-medium">Category</label>
             <select
               name="category"
               value={form.category}
@@ -165,7 +165,7 @@ const QuestionFormModal = ({ show, onClose, onSubmit, initialData }) => {
             </select>
           </div>
           <div>
-            <label className="block font-medium">Giải thích</label>
+            <label className="block font-medium">Explanation</label>
             <textarea
               name="explanation"
               value={form.explanation}
@@ -179,13 +179,13 @@ const QuestionFormModal = ({ show, onClose, onSubmit, initialData }) => {
               onClick={onClose}
               className="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400"
             >
-              Huỷ
+              Cancel
             </button>
             <button
               type="submit"
               className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600"
             >
-              {initialData ? "Cập nhật" : "Thêm"}
+              {initialData ? "Update" : "Add"}
             </button>
           </div>
         </form>

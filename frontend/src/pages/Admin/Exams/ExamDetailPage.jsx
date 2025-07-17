@@ -43,7 +43,7 @@ const ExamDetailPage = () => {
     }
   };
 
-  if (loading) return <div>Đang tải...</div>;
+  if (loading) return <div>Loading...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
   if (!exam) return null;
 
@@ -67,7 +67,7 @@ const ExamDetailPage = () => {
           </svg>
         </div>
         <h2 className="text-3xl font-extrabold text-blue-700 tracking-tight">
-          Chi tiết đề thi
+          Exam Details
         </h2>
       </div>
       {!editMode ? (
@@ -87,7 +87,7 @@ const ExamDetailPage = () => {
                   d="M20 13V7a2 2 0 00-2-2H6a2 2 0 00-2 2v6"
                 />
               </svg>
-              Tên đề thi:
+              Exam Title:
             </div>
             <div className="text-gray-900 text-base whitespace-pre-line">
               {exam.title}
@@ -95,35 +95,35 @@ const ExamDetailPage = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-white rounded-xl shadow p-4">
-              <div className="font-medium text-gray-600 mb-1">Thời gian</div>
+              <div className="font-medium text-gray-600 mb-1">Duration</div>
               <div className="text-blue-700 font-bold">
-                {exam.duration} phút
+                {exam.duration} min
               </div>
             </div>
             <div className="bg-white rounded-xl shadow p-4">
-              <div className="font-medium text-gray-600 mb-1">Loại đề</div>
+              <div className="font-medium text-gray-600 mb-1">Exam Type</div>
               <div className="text-blue-700 font-bold">{exam.examType}</div>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-white rounded-xl shadow p-4">
-              <div className="font-medium text-gray-600 mb-1">Số bài tập</div>
+              <div className="font-medium text-gray-600 mb-1">Total Assignments</div>
               <div className="text-red-700 font-bold">
                 {exam.totalAssignment}
               </div>
             </div>
             <div className="bg-white rounded-xl shadow p-4">
-              <div className="font-medium text-gray-600 mb-1">Số câu hỏi</div>
+              <div className="font-medium text-gray-600 mb-1">Total Questions</div>
               <div className="text-red-700 font-bold">
                 {exam.totalQuestions}
               </div>
             </div>
           </div>
           <div className="bg-white rounded-xl shadow p-4">
-            <div className="font-medium text-gray-600 mb-1">Mô tả</div>
+            <div className="font-medium text-gray-600 mb-1">Description</div>
             <div className="text-gray-900">
               {exam.description || (
-                <span className="italic text-gray-400">Không có</span>
+                <span className="italic text-gray-400">No description</span>
               )}
             </div>
           </div>
@@ -145,7 +145,7 @@ const ExamDetailPage = () => {
                   d="M15.232 5.232l3.536 3.536M9 13l6.293-6.293a1 1 0 011.414 0l2.586 2.586a1 1 0 010 1.414L13 17H9v-4z"
                 />
               </svg>
-              Sửa
+              Edit
             </button>
             <button
               className="px-5 py-2 rounded-lg bg-gray-300 text-gray-700 font-semibold shadow hover:bg-gray-400 transition"
@@ -164,7 +164,7 @@ const ExamDetailPage = () => {
                   d="M15 19l-7-7 7-7"
                 />
               </svg>
-              Quay lại
+              Back
             </button>
           </div>
         </div>
@@ -175,7 +175,7 @@ const ExamDetailPage = () => {
         >
           <div>
             <label className="block font-medium text-gray-700 mb-1">
-              Tên đề thi
+              Exam Title
             </label>
             <input
               name="title"
@@ -188,7 +188,7 @@ const ExamDetailPage = () => {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block font-medium text-gray-700 mb-1">
-                Thời gian
+                Duration
               </label>
               <input
                 name="duration"
@@ -201,7 +201,7 @@ const ExamDetailPage = () => {
             </div>
             <div>
               <label className="block font-medium text-gray-700 mb-1">
-                Loại đề
+                Exam Type
               </label>
               <input
                 name="examType"
@@ -214,7 +214,7 @@ const ExamDetailPage = () => {
           </div>
           <div>
             <label className="block font-medium text-gray-700 mb-1">
-              Mô tả
+              Description
             </label>
             <textarea
               name="description"
@@ -228,14 +228,14 @@ const ExamDetailPage = () => {
               type="submit"
               className="px-5 py-2 rounded-lg bg-blue-500 text-white font-semibold shadow hover:bg-blue-600 transition"
             >
-              Lưu
+              Save
             </button>
             <button
               type="button"
               className="px-5 py-2 rounded-lg bg-gray-300 text-gray-700 font-semibold shadow hover:bg-gray-400 transition"
               onClick={() => setEditMode(false)}
             >
-              Huỷ
+              Cancel
             </button>
           </div>
         </form>

@@ -8,6 +8,10 @@ import ExamList from "../pages/User/ExamList";
 
 // Admin pages (import từ đúng folder)
 import AdminDashboard from "../pages/Admin/Dashboard/AdminDashboard";
+import VocabularyLessonList from "../pages/User/VocabularyLesson/VocabularyLessonList";
+import VocabularyLessonDetail from "../pages/User/VocabularyLesson/VocabularyLessonDetail";
+import AdminVocabularyLessonList from "../pages/Admin/VocabularyLesson/AdminVocabularyLessonList";
+import AdminVocabularyLessonForm from "../pages/Admin/VocabularyLesson/AdminVocabularyLessonForm";
 import QuestionBankPage from "../pages/Admin/Questions/QuestionBankPage";
 import QuestionDetailPage from "../pages/Admin/Questions/QuestionDetailPage";
 import ExerciseBankPage from "../pages/Admin/Exercises/ExerciseBankPage";
@@ -36,6 +40,14 @@ const AppRouter = () => {
       <Route path="/admin/exam-bank/create" element={<CreateExamPage />} />
       <Route path="/admin/exam-details/:id" element={<ExamDetailPage />} />
       <Route path="/admin/edit-exam/:id" element={<EditExamPage />} />
+      {/* User VocabularyLesson */}
+      <Route path="/vocabulary-lessons" element={<VocabularyLessonList />} />
+      <Route path="/vocabulary-lessons/:id" element={<VocabularyLessonDetail />} />
+
+      {/* Admin VocabularyLesson */}
+      <Route path="/admin/vocabulary-lessons" element={<AdminVocabularyLessonList />} />
+      <Route path="/admin/vocabulary-lessons/create" element={<AdminVocabularyLessonForm />} />
+      <Route path="/admin/vocabulary-lessons/edit/:id" element={<AdminVocabularyLessonForm />} />
     </Routes>
   );
 };

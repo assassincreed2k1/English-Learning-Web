@@ -25,7 +25,7 @@ const ExamBankPage = () => {
       setExams(data);
       setFilteredExams(data);
     } catch (err) {
-      setError("Không thể tải danh sách đề thi");
+      setError("Cannot load exam list");
     }
     setLoading(false);
   };
@@ -47,14 +47,14 @@ const ExamBankPage = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Bạn có chắc muốn xoá?")) {
+    if (window.confirm("Are you sure you want to delete?")) {
       try {
         await deleteExam(id);
         const updatedExams = exams.filter((ex) => ex.id !== id);
         setExams(updatedExams);
         setFilteredExams(updatedExams);
       } catch (err) {
-        alert("Xoá thất bại!");
+        alert("Delete failed!");
       }
     }
   };
@@ -68,12 +68,12 @@ const ExamBankPage = () => {
       <Header />
       <main className="flex-1 bg-gray-100 p-8">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-gray-800">Ngân hàng đề thi</h1>
+        <h1 className="text-3xl font-bold text-gray-800">Exam Bank</h1>
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
             onClick={() => navigate("/admin/exam-bank/create")}
           >
-            ➕ Thêm đề thi
+            ➕ Add Exam
           </button>
         </div>
 
@@ -81,7 +81,7 @@ const ExamBankPage = () => {
         <div className="mb-4">
           <input
             type="text"
-            placeholder="Tìm kiếm đề thi theo tên, mô tả, loại..."
+            placeholder="Search exam by name, description, type..."
             value={searchTerm}
             onChange={handleSearch}
             className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -97,15 +97,15 @@ const ExamBankPage = () => {
               <thead>
                 <tr className="bg-gray-200">
                   <th className="p-2 text-left">#</th>
-                  <th className="p-2 text-left">Tên đề thi</th>
-                  <th className="p-2 text-left">Mô tả</th>
-                  <th className="p-2 text-left">Loại</th>
-                  <th className="p-2 text-left">Độ khó</th>
-                  <th className="p-2 text-left">Thời gian (phút)</th>
-                  <th className="p-2 text-left">Điểm đạt</th>
-                  <th className="p-2 text-left">Số bài tập</th>
-                  <th className="p-2 text-left">Trạng thái</th>
-                  <th className="p-2 text-left">Hành động</th>
+                  <th className="p-2 text-left">Exam Name</th>
+                  <th className="p-2 text-left">Description</th>
+                  <th className="p-2 text-left">Type</th>
+                  <th className="p-2 text-left">Difficulty</th>
+                  <th className="p-2 text-left">Duration (min)</th>
+                  <th className="p-2 text-left">Passing Score</th>
+                  <th className="p-2 text-left">Assignments</th>
+                  <th className="p-2 text-left">Status</th>
+                  <th className="p-2 text-left">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -118,7 +118,7 @@ const ExamBankPage = () => {
                         (ex.description.length > 50 ? 
                           ex.description.substring(0, 50) + "..." : 
                           ex.description) : 
-                        "Không có mô tả"}
+                        "No description"}
                     </td>
                     <td className="p-2">
                       <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm">
@@ -143,7 +143,7 @@ const ExamBankPage = () => {
                       <span className={`px-2 py-1 rounded text-sm ${
                         ex.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
                       }`}>
-                        {ex.isActive ? 'Hoạt động' : 'Tạm dừng'}
+                        {ex.isActive ? 'Active' : 'Inactive'}
                       </span>
                     </td>
                     <td className="p-2 space-x-2">
@@ -151,13 +151,13 @@ const ExamBankPage = () => {
                         className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
                         onClick={() => handleViewDetails(ex.id)}
                       >
-                        Chi tiết
+                        Details
                       </button>
                       <button
                         className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
                         onClick={() => handleDelete(ex.id)}
                       >
-                        Xoá
+                        Delete
                       </button>
                     </td>
                   </tr>
@@ -165,7 +165,7 @@ const ExamBankPage = () => {
                 {filteredExams.length === 0 && (
                   <tr>
                     <td colSpan={10} className="text-center py-4 text-gray-500">
-                      {searchTerm ? "Không tìm thấy đề thi nào phù hợp." : "Chưa có đề thi nào."}
+                      {searchTerm ? "No matching exams found." : "No exams yet."}
                     </td>
                   </tr>
                 )}

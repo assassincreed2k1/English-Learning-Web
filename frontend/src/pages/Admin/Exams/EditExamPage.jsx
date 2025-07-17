@@ -6,10 +6,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getExamById, updateExam } from "../../../api/examAPI";
 
 const examTypeOptions = [
-  { value: "VOCABULARY", label: "Từ vựng" },
-  { value: "GRAMMAR", label: "Ngữ pháp" },
-  { value: "LISTENING", label: "Nghe hiểu" },
-  { value: "READING", label: "Đọc hiểu" },
+  { value: "VOCABULARY", label: "Vocabulary" },
+  { value: "GRAMMAR", label: "Grammar" },
+  { value: "LISTENING", label: "Listening Comprehension" },
+  { value: "READING", label: "Reading Comprehension" },
 ];
 
 const EditExamPage = () => {
@@ -36,7 +36,7 @@ const EditExamPage = () => {
         const data = await getAssignments();
         setAssignments(data);
       } catch (err) {
-        alert("Không thể tải dữ liệu đề thi!");
+        alert("Cannot load exam data!");
         navigate("/exam-bank");
       }
       setLoading(false);
@@ -66,31 +66,31 @@ const EditExamPage = () => {
         totalAssignment: selectedAssignments.length,
         examAssignments: selectedAssignments,
       });
-      alert("Đã cập nhật đề thi!");
+      alert("Exam updated!");
       navigate("/exam-bank");
     } catch (err) {
-      alert("Cập nhật đề thi thất bại!");
+      alert("Exam update failed!");
     }
   };
 
-  if (loading) return <div>Đang tải...</div>;
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1 bg-gray-100 p-8">
-        <h1 className="text-2xl font-bold mb-4">Sửa đề thi</h1>
+        <h1 className="text-2xl font-bold mb-4">Edit Exam</h1>
         <form onSubmit={handleSubmit} className="mb-6 flex items-center gap-4">
           <input
             className="border rounded p-2 w-1/4"
-            placeholder="Tên đề thi"
+            placeholder="Exam Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
           />
           <input
             className="border rounded p-2 w-1/4"
-            placeholder="Link ảnh (tuỳ chọn)"
+            placeholder="Image URL (optional)"
             value={image}
             onChange={(e) => setImage(e.target.value)}
           />
@@ -98,7 +98,7 @@ const EditExamPage = () => {
             className="border rounded p-2 w-1/6"
             type="number"
             min={1}
-            placeholder="Thời gian (phút)"
+            placeholder="Duration (min)"
             value={duration}
             onChange={(e) => setDuration(Number(e.target.value))}
             required
@@ -118,13 +118,13 @@ const EditExamPage = () => {
             type="submit"
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           >
-            Lưu thay đổi
+            Save Changes
           </button>
         </form>
         <div className="flex gap-8">
-          {/* Danh sách bài tập */}
+          {/* Assignment List */}
           <div className="w-1/2 bg-white rounded shadow p-4">
-            <h2 className="font-bold mb-2">Danh sách bài tập</h2>
+            <h2 className="font-bold mb-2">Assignment List</h2>
             <ul>
               {assignments.map((a) => (
                 <li
@@ -139,15 +139,15 @@ const EditExamPage = () => {
                       (item) => item.id === a.id
                     )}
                   >
-                    Thêm
+                    Add
                   </button>
                 </li>
               ))}
             </ul>
           </div>
-          {/* Bài tập đã chọn cho đề thi */}
+          {/* Selected Assignments for Exam */}
           <div className="w-1/2 bg-white rounded shadow p-4">
-            <h2 className="font-bold mb-2">Bài tập trong đề thi</h2>
+            <h2 className="font-bold mb-2">Assignments in Exam</h2>
             <ul>
               {selectedAssignments.map((a) => (
                 <li
@@ -159,13 +159,13 @@ const EditExamPage = () => {
                     className="ml-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
                     onClick={() => handleRemoveAssignment(a.id)}
                   >
-                    Xoá
+                    Remove
                   </button>
                 </li>
               ))}
-              {selectedAssignments.length === 0 && (
-                <li className="text-gray-500 py-2">Chưa có bài tập nào.</li>
-              )}
+                {selectedAssignments.length === 0 && (
+                  <li className="text-gray-500 py-2">No assignments selected.</li>
+                )}
             </ul>
           </div>
         </div>

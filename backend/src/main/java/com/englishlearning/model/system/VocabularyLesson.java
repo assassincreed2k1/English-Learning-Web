@@ -1,6 +1,11 @@
 package com.englishlearning.model.system;
 
-import java.util.List;
+
+
+import jakarta.persistence.Column;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 import com.englishlearning.model.BaseEntity;
 import jakarta.persistence.Entity;
@@ -16,8 +21,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VocabularyLesson extends BaseEntity {
-    private String name;
-    private String image;
+    private String title; // Tiêu đề bài post
+    private String image; // Hình ảnh
+    @Column(columnDefinition = "TEXT")
+    private String content; // Nội dung bài post
 
-    // private List<Vocabulary> vocabularyList;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "exam_id")
+    private Exam exam; // Liên kết với Exam
 }

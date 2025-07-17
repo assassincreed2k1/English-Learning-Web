@@ -17,7 +17,7 @@ const QuestionDetailPage = () => {
       try {
         const allQuestions = await getQuestions();
         const found = allQuestions.find(q => String(q.id) === String(id));
-        if (!found) throw new Error("Không tìm thấy câu hỏi");
+        if (!found) throw new Error("Question not found");
         setQuestion(found);
         setForm(found);
       } catch (e) {
@@ -39,13 +39,13 @@ const QuestionDetailPage = () => {
       await updateQuestion(id, form);
       setEditMode(false);
       setQuestion(form);
-      alert("Cập nhật thành công!");
+      alert("Update successful!");
     } catch (err) {
-      alert("Cập nhật thất bại: " + err.message);
+      alert("Update failed: " + err.message);
     }
   };
 
-  if (loading) return <div>Đang tải...</div>;
+  if (loading) return <div>Loading...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
   if (!question) return null;
 
@@ -69,7 +69,7 @@ const QuestionDetailPage = () => {
           </svg>
         </div>
         <h2 className="text-3xl font-extrabold text-blue-700 tracking-tight">
-          Chi tiết câu hỏi
+          Question Details
         </h2>
       </div>
       {!editMode ? (
@@ -89,7 +89,7 @@ const QuestionDetailPage = () => {
                   d="M20 13V7a2 2 0 00-2-2H6a2 2 0 00-2 2v6"
                 />
               </svg>
-              Nội dung:
+              Content:
             </div>
             <div className="text-gray-900 text-base whitespace-pre-line">
               {question.content}
@@ -97,29 +97,29 @@ const QuestionDetailPage = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-white rounded-xl shadow p-4">
-              <div className="font-medium text-gray-600 mb-1">Chủ đề</div>
+              <div className="font-medium text-gray-600 mb-1">Topic</div>
               <div className="text-blue-700 font-bold">{question.topic}</div>
             </div>
             <div className="bg-white rounded-xl shadow p-4">
               <div className="font-medium text-gray-600 mb-1">
-                Phân loại chủ đề
+                Category
               </div>
               <div className="text-blue-700 font-bold">{question.category}</div>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-white rounded-xl shadow p-4">
-              <div className="font-medium text-gray-600 mb-1">Đáp án đúng</div>
+              <div className="font-medium text-gray-600 mb-1">Correct Answer</div>
               <div className="text-red-700 font-bold">
                 {question.correctAnswer}
               </div>
             </div>
           </div>
           <div className="bg-white rounded-xl shadow p-4">
-            <div className="font-medium text-gray-600 mb-1">Giải thích</div>
+            <div className="font-medium text-gray-600 mb-1">Explanation</div>
             <div className="text-gray-900">
               {question.explanation || (
-                <span className="italic text-gray-400">Không có</span>
+                <span className="italic text-gray-400">No explanation</span>
               )}
             </div>
           </div>
@@ -141,7 +141,7 @@ const QuestionDetailPage = () => {
                   d="M15.232 5.232l3.536 3.536M9 13l6.293-6.293a1 1 0 011.414 0l2.586 2.586a1 1 0 010 1.414L13 17H9v-4z"
                 />
               </svg>
-              Sửa
+              Edit
             </button>
             <button
               className="px-5 py-2 rounded-lg bg-gray-300 text-gray-700 font-semibold shadow hover:bg-gray-400 transition"
@@ -160,7 +160,7 @@ const QuestionDetailPage = () => {
                   d="M15 19l-7-7 7-7"
                 />
               </svg>
-              Quay lại
+              Back
             </button>
           </div>
         </div>
@@ -171,7 +171,7 @@ const QuestionDetailPage = () => {
         >
           <div>
             <label className="block font-medium text-gray-700 mb-1">
-              Nội dung
+              Content
             </label>
             <textarea
               name="content"
@@ -184,7 +184,7 @@ const QuestionDetailPage = () => {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block font-medium text-gray-700 mb-1">
-                Chủ đề
+                Topic
               </label>
               <input
                 name="topic"
@@ -196,7 +196,7 @@ const QuestionDetailPage = () => {
             </div>
             <div>
               <label className="block font-medium text-gray-700 mb-1">
-                Phân loại chủ đề
+                Category
               </label>
               <input
                 name="category"
@@ -210,7 +210,7 @@ const QuestionDetailPage = () => {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block font-medium text-gray-700 mb-1">
-                Đáp án đúng
+                Correct Answer
               </label>
               <input
                 name="correctAnswer"
@@ -223,7 +223,7 @@ const QuestionDetailPage = () => {
           </div>
           <div>
             <label className="block font-medium text-gray-700 mb-1">
-              Giải thích
+              Explanation
             </label>
             <textarea
               name="explanation"
@@ -237,14 +237,14 @@ const QuestionDetailPage = () => {
               type="submit"
               className="px-5 py-2 rounded-lg bg-blue-500 text-white font-semibold shadow hover:bg-blue-600 transition"
             >
-              Lưu
+              Save
             </button>
             <button
               type="button"
               className="px-5 py-2 rounded-lg bg-gray-300 text-gray-700 font-semibold shadow hover:bg-gray-400 transition"
               onClick={() => setEditMode(false)}
             >
-              Huỷ
+              Cancel
             </button>
           </div>
         </form>

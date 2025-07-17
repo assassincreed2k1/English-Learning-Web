@@ -150,13 +150,13 @@ const AssignmentDetailPage = () => {
       <main className="flex-1 bg-gray-100 p-8">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-bold">Chi tiết bài tập</h1>
+            <h1 className="text-2xl font-bold">Assignment Details</h1>
             <div className="flex gap-2">
               <button
                 onClick={() => navigate("/admin/exercise-bank")}
                 className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
               >
-                Quay lại
+                Back
               </button>
               <button
                 onClick={() => setIsEditing(!isEditing)}
@@ -166,7 +166,7 @@ const AssignmentDetailPage = () => {
                     : "bg-blue-500 hover:bg-blue-600"
                 } text-white`}
               >
-                {isEditing ? "Hủy chỉnh sửa" : "Chỉnh sửa"}
+                {isEditing ? "Cancel Edit" : "Edit"}
               </button>
             </div>
           </div>
@@ -178,7 +178,7 @@ const AssignmentDetailPage = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Tên bài tập *
+                      Exercise Name *
                     </label>
                     <input
                       type="text"
@@ -190,19 +190,19 @@ const AssignmentDetailPage = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Loại bài tập
+                      Exercise Type
                     </label>
                     <select
                       value={exerciseType}
                       onChange={(e) => setExerciseType(e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
-                      <option value="VOCABULARY">Từ vựng</option>
-                      <option value="GRAMMAR">Ngữ pháp</option>
-                      <option value="PRONUNCIATION">Phát âm</option>
-                      <option value="LISTENING">Nghe hiểu</option>
-                      <option value="READING">Đọc hiểu</option>
-                      <option value="MIXED">Hỗn hợp</option>
+                      <option value="VOCABULARY">Vocabulary</option>
+                      <option value="GRAMMAR">Grammar</option>
+                      <option value="PRONUNCIATION">Pronunciation</option>
+                      <option value="LISTENING">Listening Comprehension</option>
+                      <option value="READING">Reading Comprehension</option>
+                      <option value="MIXED">Mixed</option>
                     </select>
                   </div>
                 </div>
@@ -210,7 +210,7 @@ const AssignmentDetailPage = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Mô tả bài tập
+                      Exercise Description
                     </label>
                     <textarea
                       value={exerciseDesc}
@@ -221,7 +221,7 @@ const AssignmentDetailPage = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Thời gian giới hạn (phút)
+                      Time Limit (minutes)
                     </label>
                     <input
                       type="number"
@@ -236,7 +236,7 @@ const AssignmentDetailPage = () => {
                 {exerciseType === "READING" && (
                   <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Đoạn văn đọc hiểu
+                      Reading Passage
                     </label>
                     <textarea
                       value={passage}
@@ -250,7 +250,7 @@ const AssignmentDetailPage = () => {
                 {exerciseType === "LISTENING" && (
                   <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      URL âm thanh
+                      Audio URL
                     </label>
                     <input
                       type="url"
@@ -265,7 +265,7 @@ const AssignmentDetailPage = () => {
                   type="submit"
                   className="px-6 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
                 >
-                  Cập nhật bài tập
+                  Update Assignment
                 </button>
               </form>
             ) : (
@@ -274,24 +274,24 @@ const AssignmentDetailPage = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <div className="mb-4">
-                      <strong>Loại bài tập:</strong> {getTypeDisplayName(assignment.type)}
+                      <strong>Exercise Type:</strong> {getTypeDisplayName(assignment.type)}
                     </div>
                     <div className="mb-4">
-                      <strong>Số câu hỏi:</strong> {assignment.questions?.length || 0}
+                      <strong>Number of Questions:</strong> {assignment.questions?.length || 0}
                     </div>
                     <div className="mb-4">
-                      <strong>Thời gian:</strong> {assignment.timeLimit ? `${assignment.timeLimit} phút` : "Không giới hạn"}
+                      <strong>Time:</strong> {assignment.timeLimit ? `${assignment.timeLimit} min` : "Unlimited"}
                     </div>
                   </div>
                   <div>
                     {assignment.description && (
                       <div className="mb-4">
-                        <strong>Mô tả:</strong> {assignment.description}
+                        <strong>Description:</strong> {assignment.description}
                       </div>
                     )}
                     {assignment.passage && (
                       <div className="mb-4">
-                        <strong>Đoạn văn:</strong>
+                        <strong>Passage:</strong>
                         <div className="mt-2 p-3 bg-gray-50 rounded">
                           {assignment.passage}
                         </div>
@@ -302,7 +302,7 @@ const AssignmentDetailPage = () => {
                         <strong>Audio:</strong>
                         <audio controls className="mt-2 w-full">
                           <source src={assignment.audioUrl} type="audio/mpeg" />
-                          Trình duyệt không hỗ trợ audio.
+                          Your browser does not support audio.
                         </audio>
                       </div>
                     )}
@@ -317,13 +317,13 @@ const AssignmentDetailPage = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Available Questions */}
               <div className="bg-white rounded-lg shadow p-6">
-                <h2 className="text-xl font-bold mb-4">Danh sách câu hỏi</h2>
+                <h2 className="text-xl font-bold mb-4">Question List</h2>
                 
                 {/* Search */}
                 <div className="mb-4 flex gap-2">
                   <input
                     type="text"
-                    placeholder="Tìm kiếm câu hỏi..."
+                  placeholder="Search questions..."
                     value={searchKeyword}
                     onChange={(e) => setSearchKeyword(e.target.value)}
                     className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -333,7 +333,7 @@ const AssignmentDetailPage = () => {
                     onClick={handleSearchQuestions}
                     className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
                   >
-                    Tìm
+                    Search
                   </button>
                 </div>
                 
@@ -349,7 +349,7 @@ const AssignmentDetailPage = () => {
                         <div>D. {question.optionD}</div>
                       </div>
                       <div className="text-sm text-green-600 mb-2">
-                        Đáp án: {question.correctAnswer}. {getCorrectAnswerText(question)}
+                        Answer: {question.correctAnswer}. {getCorrectAnswerText(question)}
                       </div>
                       <button
                         onClick={() => handleAddQuestion(question)}
@@ -360,7 +360,7 @@ const AssignmentDetailPage = () => {
                             : "bg-blue-500 text-white hover:bg-blue-600"
                         }`}
                       >
-                        {selectedQuestions.find((q) => q.id === question.id) ? "Đã chọn" : "Thêm"}
+                        {selectedQuestions.find((q) => q.id === question.id) ? "Selected" : "Add"}
                       </button>
                     </div>
                   ))}
@@ -370,7 +370,7 @@ const AssignmentDetailPage = () => {
               {/* Selected Questions */}
               <div className="bg-white rounded-lg shadow p-6">
                 <h2 className="text-xl font-bold mb-4">
-                  Câu hỏi đã chọn ({selectedQuestions.length})
+                  Selected Questions ({selectedQuestions.length})
                 </h2>
                 
                 <div className="max-h-96 overflow-y-auto">
@@ -388,14 +388,14 @@ const AssignmentDetailPage = () => {
                             <div>D. {question.optionD}</div>
                           </div>
                           <div className="text-sm text-green-600">
-                            Đáp án: {question.correctAnswer}. {getCorrectAnswerText(question)}
+                            Answer: {question.correctAnswer}. {getCorrectAnswerText(question)}
                           </div>
                         </div>
                         <button
                           onClick={() => handleRemoveQuestion(question.id)}
                           className="ml-2 px-2 py-1 bg-red-500 text-white rounded text-sm hover:bg-red-600"
                         >
-                          Xóa
+                          Remove
                         </button>
                       </div>
                     </div>
@@ -405,7 +405,7 @@ const AssignmentDetailPage = () => {
             </div>
           ) : (
             <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-bold mb-4">Danh sách câu hỏi ({assignment.questions?.length || 0})</h2>
+                <h2 className="text-xl font-bold mb-4">Question List ({assignment.questions?.length || 0})</h2>
               
               <div className="space-y-4">
                 {assignment.questions?.map((question, index) => (
@@ -420,12 +420,12 @@ const AssignmentDetailPage = () => {
                       <div>D. {question.optionD}</div>
                     </div>
                     <div className="text-sm text-green-600">
-                      Đáp án: {question.correctAnswer}. {getCorrectAnswerText(question)}
+                    Answer: {question.correctAnswer}. {getCorrectAnswerText(question)}
                     </div>
                   </div>
                 )) || (
                   <div className="text-center text-gray-500">
-                    Bài tập này chưa có câu hỏi nào
+                    This assignment has no questions yet
                   </div>
                 )}
               </div>

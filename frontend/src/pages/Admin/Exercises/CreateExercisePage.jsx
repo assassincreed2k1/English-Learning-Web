@@ -32,7 +32,7 @@ const CreateExercisePage = () => {
       setQuestions(data);
     } catch (error) {
       console.error("Error fetching questions:", error);
-      alert("Lỗi khi tải danh sách câu hỏi!");
+      alert("Error loading question list!");
     } finally {
       setLoading(false);
     }
@@ -45,7 +45,7 @@ const CreateExercisePage = () => {
         setQuestions(data);
       } catch (error) {
         console.error("Error searching questions:", error);
-        alert("Lỗi khi tìm kiếm câu hỏi!");
+        alert("Error searching questions!");
       }
     } else {
       fetchQuestions();
@@ -65,11 +65,11 @@ const CreateExercisePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!exerciseTitle.trim()) {
-      alert("Vui lòng nhập tên bài tập!");
+      alert("Please enter the exercise name!");
       return;
     }
     if (selectedQuestions.length === 0) {
-      alert("Vui lòng chọn ít nhất một câu hỏi!");
+      alert("Please select at least one question!");
       return;
     }
     try {
@@ -83,11 +83,11 @@ const CreateExercisePage = () => {
         questions: selectedQuestions,
         quantity: selectedQuestions.length,
       });
-      alert("Đã tạo bài tập mới thành công!");
+      alert("Exercise created successfully!");
       navigate("/admin/exercise-bank");
     } catch (error) {
       console.error("Error creating assignment:", error);
-      alert("Lỗi khi tạo bài tập!\n" + (error?.message || ""));
+      alert("Error creating exercise!\n" + (error?.message || ""));
     }
   };
 
@@ -106,7 +106,7 @@ const CreateExercisePage = () => {
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-1 bg-gray-100 p-8">
-          <div className="text-center">Đang tải...</div>
+      <div className="text-center">Loading...</div>
         </main>
         <Footer />
       </div>
@@ -118,7 +118,7 @@ const CreateExercisePage = () => {
       <Header />
       <main className="flex-1 bg-gray-100 p-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-2xl font-bold mb-6">Tạo bài tập mới</h1>
+          <h1 className="text-2xl font-bold mb-6">Create New Exercise</h1>
           
           {/* Basic Information Form */}
           <div className="bg-white rounded-lg shadow p-6 mb-6">
@@ -126,7 +126,7 @@ const CreateExercisePage = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Tên bài tập *
+                    Exercise Name *
                   </label>
                   <input
                     type="text"
@@ -138,19 +138,19 @@ const CreateExercisePage = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Loại bài tập
+                    Exercise Type
                   </label>
                   <select
                     value={exerciseType}
                     onChange={(e) => setExerciseType(e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
-                    <option value="VOCABULARY">Từ vựng</option>
-                    <option value="GRAMMAR">Ngữ pháp</option>
-                    <option value="PRONUNCIATION">Phát âm</option>
-                    <option value="LISTENING">Nghe hiểu</option>
-                    <option value="READING">Đọc hiểu</option>
-                    <option value="MIXED">Hỗn hợp</option>
+                    <option value="VOCABULARY">Vocabulary</option>
+                    <option value="GRAMMAR">Grammar</option>
+                    <option value="PRONUNCIATION">Pronunciation</option>
+                    <option value="LISTENING">Listening Comprehension</option>
+                    <option value="READING">Reading Comprehension</option>
+                    <option value="MIXED">Mixed</option>
                   </select>
                 </div>
               </div>
@@ -158,7 +158,7 @@ const CreateExercisePage = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Mô tả bài tập
+                    Exercise Description
                   </label>
                   <textarea
                     value={exerciseDesc}
@@ -169,7 +169,7 @@ const CreateExercisePage = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Thời gian giới hạn (phút)
+                    Time Limit (minutes)
                   </label>
                   <input
                     type="number"
@@ -184,7 +184,7 @@ const CreateExercisePage = () => {
               {exerciseType === "READING" && (
                 <div className="mb-4">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Đoạn văn đọc hiểu
+                    Reading Passage
                   </label>
                   <textarea
                     value={passage}
@@ -198,7 +198,7 @@ const CreateExercisePage = () => {
               {exerciseType === "LISTENING" && (
                 <div className="mb-4">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    URL âm thanh
+                    Audio URL
                   </label>
                   <input
                     type="url"
@@ -213,7 +213,7 @@ const CreateExercisePage = () => {
                 type="submit"
                 className="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                Tạo bài tập
+                Create Exercise
               </button>
             </form>
           </div>
@@ -222,13 +222,13 @@ const CreateExercisePage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Available Questions */}
             <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-bold mb-4">Danh sách câu hỏi</h2>
+              <h2 className="text-xl font-bold mb-4">Question List</h2>
               
               {/* Search */}
               <div className="mb-4 flex gap-2">
                 <input
                   type="text"
-                  placeholder="Tìm kiếm câu hỏi..."
+                  placeholder="Search questions..."
                   value={searchKeyword}
                   onChange={(e) => setSearchKeyword(e.target.value)}
                   className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -238,7 +238,7 @@ const CreateExercisePage = () => {
                   onClick={handleSearchQuestions}
                   className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
                 >
-                  Tìm
+                  Search
                 </button>
               </div>
               
@@ -246,7 +246,7 @@ const CreateExercisePage = () => {
               <div className="max-h-96 overflow-y-auto">
                 {questions.length === 0 ? (
                   <div className="text-center text-gray-500 py-4">
-                    Không có câu hỏi nào
+                    No questions found
                   </div>
                 ) : (
                   questions.map((question) => (
@@ -260,7 +260,7 @@ const CreateExercisePage = () => {
                           <div>D. {question.optionD}</div>
                         </div>
                         <div className="text-sm text-green-600">
-                          Đáp án: {question.correctAnswer}. {getCorrectAnswerText(question)}
+                        Answer: {question.correctAnswer}. {getCorrectAnswerText(question)}
                         </div>
                       </div>
                       <button
@@ -272,7 +272,7 @@ const CreateExercisePage = () => {
                             : "bg-blue-500 text-white hover:bg-blue-600"
                         }`}
                       >
-                        {selectedQuestions.find((q) => q.id === question.id) ? "Đã chọn" : "Thêm"}
+                        {selectedQuestions.find((q) => q.id === question.id) ? "Selected" : "Add"}
                       </button>
                     </div>
                   ))
@@ -283,13 +283,13 @@ const CreateExercisePage = () => {
             {/* Selected Questions */}
             <div className="bg-white rounded-lg shadow p-6">
               <h2 className="text-xl font-bold mb-4">
-                Câu hỏi đã chọn ({selectedQuestions.length})
+                Selected Questions ({selectedQuestions.length})
               </h2>
               
               <div className="max-h-96 overflow-y-auto">
                 {selectedQuestions.length === 0 ? (
                   <div className="text-center text-gray-500 py-4">
-                    Chưa chọn câu hỏi nào
+                  No questions selected
                   </div>
                 ) : (
                   selectedQuestions.map((question, index) => (
@@ -306,14 +306,14 @@ const CreateExercisePage = () => {
                             <div>D. {question.optionD}</div>
                           </div>
                           <div className="text-sm text-green-600">
-                            Đáp án: {question.correctAnswer}. {getCorrectAnswerText(question)}
+                          Answer: {question.correctAnswer}. {getCorrectAnswerText(question)}
                           </div>
                         </div>
                         <button
                           onClick={() => handleRemoveQuestion(question.id)}
                           className="ml-2 px-2 py-1 bg-red-500 text-white rounded text-sm hover:bg-red-600"
                         >
-                          Xóa
+                          Remove
                         </button>
                       </div>
                     </div>

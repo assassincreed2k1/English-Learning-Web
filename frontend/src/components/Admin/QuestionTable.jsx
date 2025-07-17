@@ -8,19 +8,19 @@ const QuestionTable = ({ questions, onEdit, onDelete }) => {
         <thead>
           <tr className="bg-gray-200">
             <th className="p-2 text-left">#</th>
-            <th className="p-2 text-left">Nội dung</th>
-            <th className="p-2 text-left">Chủ đề</th>
-            <th className="p-2 text-left">Phân loại chủ đề</th>
-            <th className="p-2 text-left">Đáp án đúng</th>
-            <th className="p-2 text-left">Giải thích</th>
-            <th className="p-2 text-left">Hành động</th>
+            <th className="p-2 text-left">Content</th>
+            <th className="p-2 text-left">Topic</th>
+            <th className="p-2 text-left">Category</th>
+            <th className="p-2 text-left">Correct Answer</th>
+            <th className="p-2 text-left">Explanation</th>
+            <th className="p-2 text-left">Actions</th>
           </tr>
         </thead>
         <tbody>
           {questions.length === 0 ? (
             <tr>
               <td colSpan="10" className="text-center py-4 text-gray-500">
-                Không có câu hỏi nào.
+                No questions found.
               </td>
             </tr>
           ) : (
@@ -37,13 +37,13 @@ const QuestionTable = ({ questions, onEdit, onDelete }) => {
                     to={`/admin/questions/${q.id}`}
                     className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
                   >
-                    Xem chi tiết
+                    View Details
                   </Link>
                   <button
                     className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
                     onClick={() => onDelete && onDelete(q.id)}
                   >
-                    Xoá
+                    Delete
                   </button>
                 </td>
               </tr>

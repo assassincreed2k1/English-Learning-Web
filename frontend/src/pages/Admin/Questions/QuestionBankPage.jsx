@@ -8,16 +8,16 @@ import { getQuestions, addQuestion, updateQuestion, deleteQuestion, searchQuesti
 
 const QuestionBankPage = () => {
   const categoryOptions = [
-    { value: "Động vật", label: "Động vật" },
-    { value: "Cây cối", label: "Cây cối" },
-    { value: "Sinh hoạt", label: "Sinh hoạt" },
-    { value: "Công việc", label: "Công việc" },
-    { value: "Địa điểm", label: "Địa điểm" },
-    { value: "Thời tiết", label: "Thời tiết" },
-    { value: "Sức khoẻ", label: "Sức khoẻ" },
-    { value: "Gia đình", label: "Gia đình" },
-    { value: "Thực phẩm", label: "Thực phẩm" },
-    { value: "Khác", label: "Khác" },
+    { value: "Animals", label: "Animals" },
+    { value: "Plants", label: "Plants" },
+    { value: "Daily Life", label: "Daily Life" },
+    { value: "Jobs", label: "Jobs" },
+    { value: "Places", label: "Places" },
+    { value: "Weather", label: "Weather" },
+    { value: "Health", label: "Health" },
+    { value: "Family", label: "Family" },
+    { value: "Food", label: "Food" },
+    { value: "Other", label: "Other" },
   ];
 
   const [questions, setQuestions] = useState([]);
@@ -37,11 +37,11 @@ const QuestionBankPage = () => {
 
   // Topics and types from backend
   const topics = [
-    { value: "GRAMMAR", label: "Ngữ pháp" },
-    { value: "VOCABULARY", label: "Từ vựng" },
-    { value: "LISTENING", label: "Nghe" },
-    { value: "READING", label: "Đọc" },
-    { value: "WRITING", label: "Viết" },
+    { value: "GRAMMAR", label: "Grammar" },
+    { value: "VOCABULARY", label: "Vocabulary" },
+    { value: "LISTENING", label: "Listening" },
+    { value: "READING", label: "Reading" },
+    { value: "WRITING", label: "Writing" },
   ];
 
   // Removed unused questionTypes

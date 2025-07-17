@@ -1,42 +1,39 @@
 package com.englishlearning.service;
 
-import java.util.List;
 import com.englishlearning.model.system.VocabularyLesson;
 import com.englishlearning.repository.VocabularyLessonRepository;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VocabularyLessonService {
-    private final VocabularyLessonRepository vocabularyLessonRepository;
+    @Autowired
+    private VocabularyLessonRepository repository;
 
-    public VocabularyLessonService(VocabularyLessonRepository vocabularyLessonRepository) {
-        this.vocabularyLessonRepository = vocabularyLessonRepository;
+    public List<VocabularyLesson> getAll() {
+        return repository.findAll();
     }
 
-    public VocabularyLesson createVocabularyLesson(VocabularyLesson vocabularyLesson) {
-        return vocabularyLessonRepository.save(vocabularyLesson);
+    public Optional<VocabularyLesson> getById(Long id) {
+        return repository.findById(id);
     }
 
-    public VocabularyLesson updateVocabularyLesson(Long lessonId, VocabularyLesson request) throws Exception {
-        VocabularyLesson lesson = this.getVocabularyLessonById(lessonId);
-        lesson.setName(request.getName());
-        lesson.setImage(request.getImage());
-        return vocabularyLessonRepository.save(lesson);
+    public VocabularyLesson save(VocabularyLesson lesson) {
+        return repository.save(lesson);
     }
 
-    public List<VocabularyLesson> getAllVocabularyLessons() {
-        return vocabularyLessonRepository.findAll();
+    public VocabularyLesson update(Long id, VocabularyLesson lesson) {
+        VocabularyLesson existing = repository.findById(id).orElseThrow();
+        existing.setTitle(lesson.getTitle());
+        existing.setImage(lesson.getImage());
+        existing.setContent(lesson.getContent());
+        existing.setExam(lesson.getExam());
+        return repository.save(existing);
     }
 
-    public VocabularyLesson getVocabularyLessonById(Long id) throws Exception {
-        VocabularyLesson lesson = vocabularyLessonRepository.findById(id)
-                .orElseThrow(() -> new Exception("Vocabulary Lesson not found"));
-        return lesson;
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
-
-    public void deleteVocabularyLessonById(Long id) {
-        vocabularyLessonRepository.deleteById(id);
-    }
-    
 }
