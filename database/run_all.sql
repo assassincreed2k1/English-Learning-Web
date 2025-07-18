@@ -3,7 +3,7 @@
 \i './questions.sql'
 \i './assignments.sql'
 \i './exams.sql'
-\i './vocabulary_lessons.sql'
+-- \i './vocabulary_lessons.sql'
 \i './assignment_questions.sql'
 \i './exam_assignments.sql'
 

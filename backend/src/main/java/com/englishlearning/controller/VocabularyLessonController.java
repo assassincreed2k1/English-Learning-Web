@@ -1,6 +1,7 @@
 package com.englishlearning.controller;
 
 import com.englishlearning.model.system.VocabularyLesson;
+import com.englishlearning.dto.VocabularyLessonDTO;
 import com.englishlearning.service.VocabularyLessonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,29 +15,36 @@ public class VocabularyLessonController {
     private VocabularyLessonService vocabularyLessonService;
 
     @GetMapping
-    public List<VocabularyLesson> getAll() {
-        return vocabularyLessonService.getAll();
+    public List<VocabularyLessonDTO> getAll() {
+        return vocabularyLessonService.getAll().stream().map(VocabularyLessonDTO::fromEntity).toList();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<VocabularyLesson> getById(@PathVariable Long id) {
+    public ResponseEntity<VocabularyLessonDTO> getById(@PathVariable Long id) {
         return vocabularyLessonService.getById(id)
-                .map(ResponseEntity::ok)
+                .map(lesson -> ResponseEntity.ok(VocabularyLessonDTO.fromEntity(lesson)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public VocabularyLesson create(@RequestBody VocabularyLesson lesson) {
-        return vocabularyLessonService.save(lesson);
+    public VocabularyLessonDTO create(@RequestBody VocabularyLessonDTO lessonDto) {
+        VocabularyLesson lesson = lessonDto.toEntity();
+        return VocabularyLessonDTO.fromEntity(vocabularyLessonService.createVocabularyLesson(lesson));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<VocabularyLesson> update(@PathVariable Long id, @RequestBody VocabularyLesson lesson) {
-        return ResponseEntity.ok(vocabularyLessonService.update(id, lesson));
+    public ResponseEntity<VocabularyLessonDTO> update(@PathVariable Long id, @RequestBody VocabularyLessonDTO lessonDto) {
+        VocabularyLesson lesson = lessonDto.toEntity();
+        return ResponseEntity.ok(VocabularyLessonDTO.fromEntity(vocabularyLessonService.update(id, lesson)));
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         vocabularyLessonService.delete(id);
+    }
+
+    @PostMapping("/{id}/view")
+    public VocabularyLessonDTO incrementViewCount(@PathVariable Long id) {
+        return VocabularyLessonDTO.fromEntity(vocabularyLessonService.incrementViewCount(id));
     }
 }

@@ -20,20 +20,34 @@ public class VocabularyLessonService {
         return repository.findById(id);
     }
 
-    public VocabularyLesson save(VocabularyLesson lesson) {
+    public VocabularyLesson createVocabularyLesson(VocabularyLesson lesson) {
+        if (lesson.getIsPublished() == null) {
+            lesson.setIsPublished(false);
+        }
+        if (lesson.getViewCount() == null) {
+            lesson.setViewCount(0);
+        }
         return repository.save(lesson);
     }
 
     public VocabularyLesson update(Long id, VocabularyLesson lesson) {
         VocabularyLesson existing = repository.findById(id).orElseThrow();
         existing.setTitle(lesson.getTitle());
-        existing.setImage(lesson.getImage());
+        existing.setDescription(lesson.getDescription());
+        existing.setThumbnail(lesson.getThumbnail());
         existing.setContent(lesson.getContent());
-        existing.setExam(lesson.getExam());
+        existing.setExamId(lesson.getExamId());
+        existing.setIsPublished(lesson.getIsPublished());
         return repository.save(existing);
     }
 
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    public VocabularyLesson incrementViewCount(Long id) {
+        VocabularyLesson lesson = repository.findById(id).orElseThrow();
+        lesson.setViewCount(lesson.getViewCount() + 1);
+        return repository.save(lesson);
     }
 }

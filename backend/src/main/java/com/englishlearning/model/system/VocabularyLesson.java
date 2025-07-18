@@ -1,19 +1,14 @@
 package com.englishlearning.model.system;
 
-
-
 import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-
-import com.englishlearning.model.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
+import com.englishlearning.model.BaseEntity;
 @Entity
 @Table(name = "vocabulary_lessons")
 @Getter
@@ -21,12 +16,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VocabularyLesson extends BaseEntity {
-    private String title; // Tiêu đề bài post
-    private String image; // Hình ảnh
-    @Column(columnDefinition = "TEXT")
-    private String content; // Nội dung bài post
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "exam_id")
-    private Exam exam; // Liên kết với Exam
+    private String title; // Tiêu đề bài học
+    private String description; // Mô tả ngắn về bài học
+    private String thumbnail; // Ảnh đại diện cho bài học
+    
+    @Column(columnDefinition = "LONGTEXT")
+    private String content; // Nội dung bài học với HTML/CSS
+    
+    private Long examId; // ID của exam liên quan (không liên kết bảng)
+    private Boolean isPublished = false; // Trạng thái xuất bản
+    private Integer viewCount = 0; // Số lượt xem
 }

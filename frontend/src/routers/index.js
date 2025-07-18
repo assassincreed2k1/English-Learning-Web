@@ -12,6 +12,7 @@ import VocabularyLessonList from "../pages/User/VocabularyLesson/VocabularyLesso
 import VocabularyLessonDetail from "../pages/User/VocabularyLesson/VocabularyLessonDetail";
 import AdminVocabularyLessonList from "../pages/Admin/VocabularyLesson/AdminVocabularyLessonList";
 import AdminVocabularyLessonForm from "../pages/Admin/VocabularyLesson/AdminVocabularyLessonForm";
+import AdminVocabularyLessonDetail from "../pages/Admin/VocabularyLesson/AdminVocabularyLessonDetail";
 import QuestionBankPage from "../pages/Admin/Questions/QuestionBankPage";
 import QuestionDetailPage from "../pages/Admin/Questions/QuestionDetailPage";
 import ExerciseBankPage from "../pages/Admin/Exercises/ExerciseBankPage";
@@ -48,6 +49,7 @@ const AppRouter = () => {
       <Route path="/admin/vocabulary-lessons" element={<AdminVocabularyLessonList />} />
       <Route path="/admin/vocabulary-lessons/create" element={<AdminVocabularyLessonForm />} />
       <Route path="/admin/vocabulary-lessons/edit/:id" element={<AdminVocabularyLessonForm />} />
+      <Route path="/admin/vocabulary-lessons/:id" element={<AdminVocabularyLessonDetail />} />
     </Routes>
   );
 };
