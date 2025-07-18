@@ -158,7 +158,7 @@ const AdminVocabularyLessonList = () => {
                             <div className={`min-w-0 flex-1 ${lesson.thumbnail ? 'ml-4' : ''}`}>
                               <div className="flex items-center justify-between">
                                 <div className="min-w-0 flex-1">
-                                  <Link to={`/admin/vocabulary-lessons/details/${lesson.id}`} className="block focus:outline-none">
+                                  <Link to={`/admin/vocabulary-lessons/${lesson.id}`} className="block focus:outline-none">
                                     <p className="text-lg font-medium text-blue-600 hover:text-blue-500 truncate">
                                       {lesson.title}
                                     </p>
@@ -188,7 +188,7 @@ const AdminVocabularyLessonList = () => {
                           </div>
                           <div className="ml-4 flex-shrink-0 flex items-center space-x-2">
                             <Link
-                              to={`/admin/vocabulary-lessons/details/${lesson.id}`}
+                              to={`/admin/vocabulary-lessons/${lesson.id}`}
                               className="inline-flex items-center px-3 py-1 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                             >
                               Xem chi tiết
