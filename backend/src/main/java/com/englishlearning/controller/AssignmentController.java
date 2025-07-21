@@ -1,61 +1,82 @@
 package com.englishlearning.controller;
 
-import java.util.List;
-
 import com.englishlearning.model.system.Assignment;
-import com.englishlearning.repository.AssignmentRepository;
 import com.englishlearning.service.AssignmentService;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/assignments")
+@CrossOrigin(origins = "*")
 public class AssignmentController {
 
-    private final AssignmentRepository assignmentRepository;
-    private final AssignmentService assignmentService;
-
-    public AssignmentController(AssignmentService assignmentService, AssignmentRepository assignmentRepository) {
-        this.assignmentService = assignmentService;
-        this.assignmentRepository = assignmentRepository;
-    }
+    @Autowired
+    private AssignmentService assignmentService;
 
     @GetMapping
     public ResponseEntity<List<Assignment>> getAllAssignments() {
-        return ResponseEntity.ok(assignmentService.getAllAssignments());
+        try {
+            List<Assignment> assignments = assignmentService.getAllAssignments();
+            return ResponseEntity.ok(assignments);
+        } catch (Exception e) {
+            e.printStackTrace(); // Log error for debugging
+            return ResponseEntity.status(500).build();
+        }
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<List<Assignment>> searchAssignments(@RequestParam String keyword) {
-        return ResponseEntity.ok(assignmentRepository.searchByKeyword(keyword));
+    @GetMapping("/{id}")
+    public ResponseEntity<Assignment> getAssignmentById(@PathVariable Long id) {
+        try {
+            Assignment assignment = assignmentService.getAssignmentById(id);
+            return ResponseEntity.ok(assignment);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
     public ResponseEntity<Assignment> createAssignment(@RequestBody Assignment assignment) {
-        Assignment saved = assignmentService.createAssignment(assignment);
-        return ResponseEntity.ok(saved);
+        try {
+            Assignment saved = assignmentService.createAssignment(assignment);
+            return ResponseEntity.ok(saved);
+        } catch (Exception e) {
+            e.printStackTrace(); // Log error for debugging
+            return ResponseEntity.status(500).body(null);
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Assignment> updateAssignment(@PathVariable Long id, @RequestBody Assignment assignment)
-            throws Exception {
-        Assignment updated = assignmentService.updateAssignment(id, assignment);
-        return ResponseEntity.ok(updated);
+    public ResponseEntity<Assignment> updateAssignment(@PathVariable Long id, @RequestBody Assignment assignment) {
+        try {
+            Assignment updated = assignmentService.updateAssignment(id, assignment);
+            return ResponseEntity.ok(updated);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAssignment(@PathVariable Long id) {
-        assignmentService.deleteAssignmentById(id);
-        return ResponseEntity.noContent().build();
+        try {
+            assignmentService.deleteAssignment(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
+    @GetMapping("/type/{type}")
+    public ResponseEntity<List<Assignment>> getAssignmentsByType(@PathVariable Assignment.AssignmentType type) {
+        List<Assignment> assignments = assignmentService.getAssignmentsByType(type);
+        return ResponseEntity.ok(assignments);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Assignment>> searchAssignments(@RequestParam String keyword) {
+        List<Assignment> assignments = assignmentService.searchAssignments(keyword);
+        return ResponseEntity.ok(assignments);
+    }
 }

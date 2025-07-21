@@ -7,15 +7,45 @@ const defaultData = {
   optionC: "",
   optionD: "",
   correctAnswer: "A",
-  questionType: "CHOICE_QUESTION",
+  topic: "VOCABULARY",
+  category: "Animals",
+  explanation: ""
 };
+const categoryOptions = [
+  { value: "Animals", label: "Animals" },
+  { value: "Plants", label: "Plants" },
+  { value: "Daily Life", label: "Daily Life" },
+  { value: "Jobs", label: "Jobs" },
+  { value: "Places", label: "Places" },
+  { value: "Weather", label: "Weather" },
+  { value: "Health", label: "Health" },
+  { value: "Family", label: "Family" },
+  { value: "Food", label: "Food" },
+  { value: "Other", label: "Other" }
+];
+
+const topicOptions = [
+  { value: "VOCABULARY", label: "Vocabulary" },
+  { value: "GRAMMAR", label: "Grammar" },
+  { value: "PRONUNCIATION", label: "Pronunciation" },
+  { value: "LISTENING", label: "Listening" },
+  { value: "READING_COMPREHENSION", label: "Reading Comprehension" },
+  { value: "TENSES", label: "Tenses" },
+  { value: "PREPOSITIONS", label: "Prepositions" },
+  { value: "PHRASAL_VERBS", label: "Phrasal Verbs" },
+  { value: "IDIOMS", label: "Idioms" },
+  { value: "BUSINESS_ENGLISH", label: "Business English" },
+];
 
 const QuestionFormModal = ({ show, onClose, onSubmit, initialData }) => {
   const [form, setForm] = useState(defaultData);
 
   useEffect(() => {
-    if (initialData) setForm(initialData);
-    else setForm(defaultData);
+    if (initialData) {
+      setForm({ ...defaultData, ...initialData });
+    } else {
+      setForm(defaultData);
+    }
   }, [initialData, show]);
 
   const handleChange = (e) => {
@@ -34,11 +64,11 @@ const QuestionFormModal = ({ show, onClose, onSubmit, initialData }) => {
     <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-lg w-full max-w-lg">
         <h2 className="text-xl font-bold mb-4">
-          {initialData ? "Sửa câu hỏi" : "Thêm câu hỏi"}
+          {initialData ? "Edit Question" : "Add Question"}
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block font-medium">Nội dung</label>
+            <label className="block font-medium">Content</label>
             <textarea
               name="content"
               value={form.content}
@@ -49,7 +79,7 @@ const QuestionFormModal = ({ show, onClose, onSubmit, initialData }) => {
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <label>Đáp án A</label>
+              <label>Answer A</label>
               <input
                 name="optionA"
                 value={form.optionA}
@@ -59,7 +89,7 @@ const QuestionFormModal = ({ show, onClose, onSubmit, initialData }) => {
               />
             </div>
             <div>
-              <label>Đáp án B</label>
+              <label>Answer B</label>
               <input
                 name="optionB"
                 value={form.optionB}
@@ -69,7 +99,7 @@ const QuestionFormModal = ({ show, onClose, onSubmit, initialData }) => {
               />
             </div>
             <div>
-              <label>Đáp án C</label>
+              <label>Answer C</label>
               <input
                 name="optionC"
                 value={form.optionC}
@@ -79,7 +109,7 @@ const QuestionFormModal = ({ show, onClose, onSubmit, initialData }) => {
               />
             </div>
             <div>
-              <label>Đáp án D</label>
+              <label>Answer D</label>
               <input
                 name="optionD"
                 value={form.optionD}
@@ -90,7 +120,7 @@ const QuestionFormModal = ({ show, onClose, onSubmit, initialData }) => {
             </div>
           </div>
           <div>
-            <label className="block font-medium">Đáp án đúng</label>
+            <label className="block font-medium">Correct Answer</label>
             <select
               name="correctAnswer"
               value={form.correctAnswer}
@@ -105,18 +135,43 @@ const QuestionFormModal = ({ show, onClose, onSubmit, initialData }) => {
             </select>
           </div>
           <div>
-            <label className="block font-medium">Loại câu hỏi</label>
+            <label className="block font-medium">Topic</label>
             <select
-              name="questionType"
-              value={form.questionType}
+              name="topic"
+              value={form.topic}
               onChange={handleChange}
               className="w-full border rounded p-2"
               required
             >
-              <option value="ESSAY_QUESTION">Tự luận</option>
-              <option value="TF_QUESTION">Đúng/Sai</option>
-              <option value="CHOICE_QUESTION">Trắc nghiệm</option>
+              {topicOptions.map((topic) => (
+                <option key={topic.value} value={topic.value}>
+                  {topic.label}
+                </option>
+              ))}
             </select>
+          </div>
+          <div>
+            <label className="block font-medium">Category</label>
+            <select
+              name="category"
+              value={form.category}
+              onChange={handleChange}
+              className="w-full border rounded p-2"
+              required
+            >
+              {categoryOptions.map((cat) => (
+                <option key={cat.value} value={cat.value}>{cat.label}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block font-medium">Explanation</label>
+            <textarea
+              name="explanation"
+              value={form.explanation}
+              onChange={handleChange}
+              className="w-full border rounded p-2"
+            />
           </div>
           <div className="flex justify-end gap-2">
             <button
@@ -124,13 +179,13 @@ const QuestionFormModal = ({ show, onClose, onSubmit, initialData }) => {
               onClick={onClose}
               className="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400"
             >
-              Huỷ
+              Cancel
             </button>
             <button
               type="submit"
               className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600"
             >
-              {initialData ? "Cập nhật" : "Thêm"}
+              {initialData ? "Update" : "Add"}
             </button>
           </div>
         </form>

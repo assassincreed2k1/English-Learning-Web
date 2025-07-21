@@ -16,17 +16,17 @@ const Header = () => {
       </div>
       <nav className="space-x-6 text-gray-700 font-medium">
         <Link to="/admin/question-bank" className="hover:text-blue-500">
-          Ngân hàng câu hỏi
+          Question Bank
         </Link>
         <Link to="/admin/exercise-bank" className="hover:text-blue-500">
-          Ngân hàng bài tập
+          Exercise Bank
         </Link>
         <Link to="/admin/exam-bank" className="hover:text-blue-500">
-          Ngân hàng đề thi
+          Exam Bank
         </Link>
-        <a href="#" className="hover:text-blue-500">
-          Kho học liệu
-        </a>
+        <Link to="/admin/vocabulary-lessons" className="hover:text-blue-500">
+          Vocabulary Posts
+        </Link>
       </nav>
     </header>
   );

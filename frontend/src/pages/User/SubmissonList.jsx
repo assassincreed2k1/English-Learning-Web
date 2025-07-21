@@ -17,24 +17,24 @@ const SubmissonList = () => {
   return (
     <div className="max-w-2xl mx-auto py-8">
       <h2 className="text-2xl font-bold mb-6 text-blue-600 text-center">
-        Lịch sử làm bài thi
+        Exam Submission History
       </h2>
-      {loading && <div className="text-center py-8">Đang tải...</div>}
+      {loading && <div className="text-center py-8">Loading...</div>}
       {error && <div className="text-center text-red-500 py-8">{error}</div>}
       {!loading && !error && (
         <>
           {(!submissions || submissions.length === 0) ? (
-            <div className="text-center text-gray-500">Chưa có bài nộp nào.</div>
+            <div className="text-center text-gray-500">No submissions yet.</div>
           ) : (
             <table className="w-full bg-white shadow rounded">
               <thead>
                 <tr className="bg-gray-100">
                   <th className="py-2 px-4">#</th>
-                  <th className="py-2 px-4">Điểm</th>
-                  <th className="py-2 px-4">Số câu đúng</th>
-                  <th className="py-2 px-4">Tổng số câu</th>
-                  <th className="py-2 px-4">Tỷ lệ đúng (%)</th>
-                  <th className="py-2 px-4">Thời gian nộp</th>
+                  <th className="py-2 px-4">Score</th>
+                  <th className="py-2 px-4">Correct Answers</th>
+                  <th className="py-2 px-4">Total Questions</th>
+                  <th className="py-2 px-4">Correct Rate (%)</th>
+                  <th className="py-2 px-4">Submitted At</th>
                 </tr>
               </thead>
               <tbody>
@@ -57,4 +57,4 @@ const SubmissonList = () => {
   );
 };
 
-export default
+export default  SubmissonList;
