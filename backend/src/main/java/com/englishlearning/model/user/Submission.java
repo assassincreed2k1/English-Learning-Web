@@ -6,6 +6,7 @@ import java.util.List;
 import com.englishlearning.model.BaseEntity;
 
 import com.englishlearning.model.system.Exam;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -36,9 +37,11 @@ public class Submission extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
     @ManyToOne
     @JoinColumn(name = "exam_id")
+    @JsonIgnore
     private Exam exam;
 
 

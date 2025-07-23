@@ -1,10 +1,13 @@
 package com.englishlearning.controller;
 
+import com.englishlearning.dto.QuestionDto;
+import com.englishlearning.dto.response.SubmissionDto;
 import com.englishlearning.model.user.Submission;
 import com.englishlearning.model.user.SubmissionAnswer;
 import com.englishlearning.model.user.User;
 import com.englishlearning.service.SubmissionService;
 import com.englishlearning.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,20 +22,21 @@ public class SubmissionController {
         this.userService = userService;
     }
     @PostMapping("/exams/{examId}/submissions")
-    public Submission submit(@RequestBody List<SubmissionAnswer> submissionAnswers, @PathVariable Long examId) throws Exception {
+    public SubmissionDto submit(@RequestBody List<SubmissionAnswer> submissionAnswers, @PathVariable Long examId) throws Exception {
         User user = userService.getCurrentUser();
         Submission submission = submissionService.createSubmission(user.getId(), submissionAnswers, examId);
-        return submission;
+        return submissionService.toDto(submission);
     }
     @GetMapping("/exams/{examId}/submissions")
-    public List<Submission> getSubmissions(@PathVariable Long examId) throws Exception {
+    public List<SubmissionDto> getSubmissions(@PathVariable Long examId) throws Exception {
         List<Submission> submissions = submissionService.getSubmissionsByExamId(examId);
-        return submissions;
+        return submissionService.toDtos(submissions);
     }
-    @GetMapping("/submissions/{id}")
-    public Submission getSubmissionsById(@PathVariable Long id) throws Exception {
-        Submission submission = submissionService.getSubmissionById(id);
-        return submission;
+
+    @GetMapping("/submissions/{submissionId}/results")
+    public ResponseEntity<List<QuestionDto>> getSubmissionResults(@PathVariable Long submissionId) throws Exception {
+        List<QuestionDto> results = submissionService.getResults(submissionId);
+        return ResponseEntity.ok(results);
     }
     @DeleteMapping("/submissions/{id}")
     public void deleteSubmissions(@PathVariable Long id) throws Exception {

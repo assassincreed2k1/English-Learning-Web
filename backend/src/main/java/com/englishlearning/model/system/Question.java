@@ -2,7 +2,7 @@ package com.englishlearning.model.system;
 
 import com.englishlearning.model.BaseEntity;
 import com.englishlearning.model.user.SubmissionAnswer;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Entity;
@@ -42,7 +42,7 @@ public class Question extends BaseEntity {
 
     // One question can have many submission answers
     @OneToMany(mappedBy = "question")
-    @JsonIgnoreProperties({"question"})
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private java.util.List<SubmissionAnswer> submissionAnswers;
 
     public enum AnswerOption {

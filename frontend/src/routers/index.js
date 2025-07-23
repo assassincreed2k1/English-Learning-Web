@@ -22,6 +22,9 @@ import ExamBankPage from "../pages/Admin/Exams/ExamBankPage";
 import CreateExamPage from "../pages/Admin/Exams/CreateExamPage";
 import ExamDetailPage from "../pages/Admin/Exams/ExamDetailPage";
 import EditExamPage from "../pages/Admin/Exams/EditExamPage";
+import ExamDetails from "../pages/User/ExamDetails";
+import SubmissonList from "../pages/User/SubmissonList";
+import SubmissionDetail from "../pages/User/SubmissionDetail";
 
 const AppRouter = () => {
   return (
@@ -43,13 +46,34 @@ const AppRouter = () => {
       <Route path="/admin/edit-exam/:id" element={<EditExamPage />} />
       {/* User VocabularyLesson */}
       <Route path="/vocabulary-lessons" element={<VocabularyLessonList />} />
-      <Route path="/vocabulary-lessons/:id" element={<VocabularyLessonDetail />} />
+      <Route
+        path="/vocabulary-lessons/:id"
+        element={<VocabularyLessonDetail />}
+      />
+      <Route path="/exam/:examId" element={<ExamDetails />} />
+      <Route path="/exam/:examId/history" element={<SubmissonList />} />
+      <Route
+        path="/submission/:submissionId/detail"
+        element={<SubmissionDetail />}
+      />
 
       {/* Admin VocabularyLesson */}
-      <Route path="/admin/vocabulary-lessons" element={<AdminVocabularyLessonList />} />
-      <Route path="/admin/vocabulary-lessons/create" element={<AdminVocabularyLessonForm />} />
-      <Route path="/admin/vocabulary-lessons/edit/:id" element={<AdminVocabularyLessonForm />} />
-      <Route path="/admin/vocabulary-lessons/:id" element={<AdminVocabularyLessonDetail />} />
+      <Route
+        path="/admin/vocabulary-lessons"
+        element={<AdminVocabularyLessonList />}
+      />
+      <Route
+        path="/admin/vocabulary-lessons/create"
+        element={<AdminVocabularyLessonForm />}
+      />
+      <Route
+        path="/admin/vocabulary-lessons/edit/:id"
+        element={<AdminVocabularyLessonForm />}
+      />
+      <Route
+        path="/admin/vocabulary-lessons/:id"
+        element={<AdminVocabularyLessonDetail />}
+      />
     </Routes>
   );
 };

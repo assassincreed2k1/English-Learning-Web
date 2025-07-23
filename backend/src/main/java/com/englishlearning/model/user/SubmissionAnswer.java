@@ -3,6 +3,7 @@ package com.englishlearning.model.user;
 import com.englishlearning.model.BaseEntity;
 import com.englishlearning.model.system.Question;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
