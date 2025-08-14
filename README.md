@@ -1,94 +1,106 @@
-# 🧠 English Learning Web Application
+# 🧠 英語学習ウェブアプリケーション
 
-**English Learning** là một ứng dụng web hỗ trợ học tiếng Anh hiệu quả dành cho học sinh, sinh viên và giáo viên. Dự án cung cấp một hệ thống quản lý học liệu, bài tập, đề thi và ngân hàng câu hỏi với giao diện trực quan và dễ sử dụng.
+**English Learning** は、学生・教師向けの効果的な英語学習をサポートするウェブアプリです。教材管理、練習問題、試験、問題バンクを直感的なUIで提供します。
 
-## 🚀 Mục Tiêu Dự Án
+## 🚀 プロジェクト目標
 
-- Hỗ trợ người học luyện tập tiếng Anh thông qua các đề thi, bài tập được phân loại rõ ràng.
-- Giúp giáo viên dễ dàng tạo và quản lý câu hỏi, bài tập, đề thi.
-- Tối ưu trải nghiệm người dùng với giao diện thân thiện, responsive.
-- Cấu trúc frontend - backend rõ ràng, dễ bảo trì và mở rộng.
-
----
-
-## 📚 Tính Năng Chính
-
-### 👨‍🏫 Dành cho Admin
-- Quản lý **Ngân hàng câu hỏi**: tạo, chỉnh sửa, xóa, phân loại theo chủ đề.
-- Quản lý **Ngân hàng bài tập**: nhóm các câu hỏi thành một bài tập.
-- Quản lý **Ngân hàng đề thi**: tạo đề thi từ bài tập hoặc câu hỏi.
-- Quản lý **Kho học liệu**: lưu trữ và phân phối tài liệu học tập (PDF, video, v.v.).
-- Giao diện dashboard quản trị rõ ràng, dễ thao tác.
-
-### 👩‍🎓 Dành cho Học Viên
-- Truy cập và làm bài tập, đề thi online.
-- Xem lại kết quả và phân tích lỗi sai.
-- Tải và sử dụng tài liệu học tập miễn phí.
+- 分類された試験・練習問題で英語力を向上。
+- 教師が問題・練習・試験を簡単に作成・管理。
+- ユーザーフレンドリーでレスポンシブなUI。
+- フロントエンド・バックエンドの明確な構造。
 
 ---
 
-## 🛠️ Công Nghệ Sử Dụng
+## 📚 主な機能
 
-### Backend
-- **Java Spring Boot**: REST API phục vụ dữ liệu cho frontend.
-- **PostgreSQL**: lưu trữ dữ liệu chính (câu hỏi, bài tập, đề thi...).
-- **Spring Security** *(nếu dùng)*: xác thực và phân quyền người dùng.
+### 📝 ボキャブラリーレッスンシステム
+- リッチテキスト（HTML/CSS、画像、動画、数式）対応のレッスン管理。
+- 各レッスンは examId で試験と紐付け（テーブル結合なし、IDのみ保存）。
+- レッスン詳細で「試験を受ける」リンクから関連試験ページへ遷移。
+- 管理者は ReactQuill エディタでレッスン作成・編集・削除可能。
+- レッスンは全てデータベースに保存、ファイルは生成しません。
 
-### Frontend
-- **ReactJS**: xây dựng giao diện người dùng động và hiện đại.
-- **React Router**: định tuyến các trang frontend.
-- **TailwindCSS**: tùy chỉnh giao diện.
+### 👨‍💻 レッスン機能の使い方
+- **管理者**:
+  - ボキャブラリーレッスン管理画面で新規作成・編集・削除。
+  - エディタでリッチな内容（画像・動画・数式）を入力。
+  - 試験を紐付ける場合は examId を選択、未選択も可。
+  - レッスンは公開・下書きどちらも可能。
+- **ユーザー**:
+  - 美しいUIでレッスン一覧を検索・閲覧。
+  - 詳細ページでリッチテキスト・画像・動画を表示。
+  - examId がある場合「試験を受ける」ボタンで試験ページへ。
 
-## 🗂️ Cấu Trúc Dự Án
+---
 
-<br>
+## 🛠️ 使用技術
+
+### レッスンシステム
+- **ReactQuill**: レッスン内容用リッチテキストエディタ。
+- **DTOパターン**: バックエンド・フロントエンド間のデータ転送、Hibernate Proxyエラー回避。
+- **Exam Link**: examIdのみ保存、テーブル結合なし、拡張・保守が容易。
+
+### バックエンド
+- **Java Spring Boot**: REST API。
+- **PostgreSQL**: データ保存（問題・練習・試験など）。
+- **Spring Security**（必要に応じて）: 認証・権限管理。
+
+### フロントエンド
+- **ReactJS**: モダンなUI。
+- **React Router**: ページ遷移。
+- **TailwindCSS**: UIカスタマイズ。
+
+---
+
+## 🗂️ プロジェクト構成
+
+### 📦 セットアップ & データベースマイグレーション
+1. React（18以上）を使用し、ReactQuillと互換性を確保。
+2. frontendディレクトリで `npm install` を実行。
+3. peer dependencyエラー時はReact/ReactQuillのバージョンを確認。
+4. `database/update_vocabulary_lessons.sql` を実行し、レッスンテーブルを更新。
+5. Spring Boot（バックエンド）とReactJS（フロントエンド）を起動。
 
 ```bash
 english-learning/
-├── backend/                                 # Backend - Java Spring Boot
+├── database/
+│   └── update_vocabulary_lessons.sql         # レッスンテーブル更新用スクリプト
+├── backend/                                 # Java Spring Boot
 │   └── src/
 │       └── main/
 │           ├── java/com/example/
-│           │   ├── config/                  # Cấu hình Spring Security, CORS, ...
-│           │   ├── controller/              # REST Controller (API endpoints)
-│           │   ├── dto/                     # Data Transfer Object
-│           │   ├── model/                   # Entity JPA (User, Question, …)
-│           │   ├── repository/              # Spring Data JPA Repositories
-│           │   ├── service/                 # Business logic
-│           │   └── util/                    # Các class tiện ích (Token, Convert, …)
+│           │   ├── config/                  # Spring Security, CORS設定
+│           │   ├── controller/              # REST APIエンドポイント
+│           │   ├── dto/                     # DTO
+│           │   ├── model/                   # JPAエンティティ
+│           │   ├── repository/              # JPAリポジトリ
+│           │   ├── service/                 # ビジネスロジック
+│           │   └── util/                    # ユーティリティ
 │           └── resources/
-│               └── application.properties   # File cấu hình Spring Boot
-│
-│   └── pom.xml                              # Cấu hình Maven
-│
-├── frontend/                                # Frontend - ReactJS
-│   ├── node_modules/                        # Thư viện npm
-│   ├── public/                              # Index HTML, favicon, …
+│               └── application.properties   # Spring Boot設定
+│   └── pom.xml                              # Maven設定
+├── frontend/                                # ReactJS
+│   ├── public/
 │   ├── src/
-│   │   ├── api/                             # Gọi API backend
-│   │   ├── assets/                          # Hình ảnh, icon, …
-│   │   ├── components/                      # Các component dùng chung
-│   │   ├── pages/                           # Các trang chính
-│   │   │   ├── Admin/
-│   │   │   │   ├── AdminDashboard.js        # Trang quản trị dashboard
-│   │   │   │   └── QuestionBank.js          # Trang ngân hàng câu hỏi
-│   │   │   └── Register.js                  # Trang đăng ký
-│   │   ├── routers/                         # Cấu hình route với React Router
-│   │   ├── services/                        # Xử lý nghiệp vụ (Auth, Token, …)
+│   │   ├── api/                             # API呼び出し
+│   │   ├── assets/                          # 画像・アイコン
+│   │   ├── components/                      # 共通コンポーネント
+│   │   ├── pages/                           # ページ
+│   │   ├── routers/                         # React Router設定
+│   │   ├── services/                        # 業務処理
 │   │   ├── App.js
 │   │   ├── App.css
-│   │   ├── index.js                         # Điểm khởi chạy React
+│   │   ├── index.js
 │   │   ├── index.css
 │   │   ├── logo.svg
 │   │   ├── App.test.js
 │   │   ├── reportWebVitals.js
 │   │   └── setupTests.js
-│
-│   ├── package.json                         # Cấu hình project React
-│   ├── package-lock.json                    # Khóa version các dependencies
+│   ├── package.json                         # Reactプロジェクト設定
+│   ├── package-lock.json                    # 依存関係ロック
 │   └── .gitignore
-│
-├── .idea/                                   # Cấu hình cho IDE JetBrains (IntelliJ, WebStorm,…)
-├── .vscode/                                 # Cấu hình cho Visual Studio Code
-├── docs/                                    # Tài liệu dự án, thiết kế, mockup, … (nếu có)
-├── scripts/                                 # Scripts tự động (build, deploy, test,…)
+├── .idea/                                   # JetBrains IDE設定
+├── .vscode/                                 # VS Code設定
+├── docs/                                    # ドキュメント
+├── scripts/                                 # 自動化スクリプト
+```
