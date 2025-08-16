@@ -5,7 +5,9 @@ import { useNavigate } from "react-router-dom";
 
 const ExamList = () => {
   const navigate = useNavigate();
-
+  const handleClickDetail = (id) => {
+    navigate(`/exam/${id}/detail`);
+  };
   const dispatch = useDispatch();
   const { exams, loading, error } = useSelector((state) => state.exam);
 
@@ -59,6 +61,12 @@ const ExamList = () => {
                   </div>
                 </div>
                 <div className="flex gap-2 mt-4 sm:mt-0">
+                  <button
+                    onClick={() => handleClickDetail(exam.id)}
+                    className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+                  >
+                    View Detail
+                  </button>
                   <button
                     onClick={() => handleClickHistory(exam.id)}
                     className="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition"

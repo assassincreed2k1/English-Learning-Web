@@ -20,11 +20,12 @@ import CreateExercisePage from "../pages/Admin/Exercises/CreateExercisePage";
 import AssignmentDetailPage from "../pages/Admin/Exercises/AssignmentDetailPage";
 import ExamBankPage from "../pages/Admin/Exams/ExamBankPage";
 import CreateExamPage from "../pages/Admin/Exams/CreateExamPage";
-import ExamDetailPage from "../pages/Admin/Exams/ExamDetailPage";
+
 import EditExamPage from "../pages/Admin/Exams/EditExamPage";
 import ExamDetails from "../pages/User/ExamDetails";
 import SubmissonList from "../pages/User/SubmissonList";
 import SubmissionDetail from "../pages/User/SubmissionDetail";
+import ExamDetailPage from "../pages/User/ExamDetailPage";
 
 const AppRouter = () => {
   return (
@@ -51,6 +52,8 @@ const AppRouter = () => {
         element={<VocabularyLessonDetail />}
       />
       <Route path="/exam/:examId" element={<ExamDetails />} />
+      <Route path="/exam/:id/detail" element={<ExamDetailPage />} />
+
       <Route path="/exam/:examId/history" element={<SubmissonList />} />
       <Route
         path="/submission/:submissionId/detail"

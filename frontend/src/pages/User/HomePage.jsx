@@ -1,29 +1,49 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchProfile } from "../../api/userSlice";
 const HomePage = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchProfile());
+  }, [dispatch]);
   const profile = useSelector((state) => state.user.profile);
-
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <header className="bg-white shadow py-4 px-8 flex justify-between items-center">
         <h1 className="text-2xl font-bold text-blue-600">English Learning</h1>
         <nav>
-          {profile ? (
-            <span className="text-gray-700 font-medium mr-4">
-              Xin chào, {profile.username}
-            </span>
-          ) : (
-            <>
-              <Link to="/login" className="text-blue-600 hover:underline mr-4">
-                Đăng nhập
-              </Link>
-              <Link to="/register" className="text-blue-500 hover:underline">
-                Đăng ký
-              </Link>
-            </>
-          )}
+          <nav>
+            {profile ? (
+              <>
+                <span className="text-gray-700 font-medium mr-4">
+                  Xin chào, {profile.username}
+                </span>
+                {profile.role === "ADMIN" && (
+                  <Link
+                    to="/admin"
+                    className="bg-yellow-500 text-white px-4 py-2 rounded mr-2 hover:bg-yellow-600"
+                  >
+                    Admin
+                  </Link>
+                )}
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="text-blue-600 hover:underline mr-4"
+                >
+                  Đăng nhập
+                </Link>
+                <Link to="/register" className="text-blue-500 hover:underline">
+                  Đăng ký
+                </Link>
+              </>
+            )}
+          </nav>
         </nav>
       </header>
       <main className="flex-1 flex flex-col items-center justify-center px-4">
@@ -37,7 +57,6 @@ const HomePage = () => {
             quả.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            
             <Link
               to="/exams"
               className="bg-green-500 text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-green-600 transition"

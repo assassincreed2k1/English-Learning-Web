@@ -6,6 +6,8 @@ export const fetchProfile = createAsyncThunk(
   "user/fetchProfile",
   async (_, { rejectWithValue }) => {
     const token = localStorage.getItem("token");
+    console.log("TOKEN:", token);
+
     if (!token) return rejectWithValue("No token");
     try {
       const res = await axios.get("http://localhost:8080/api/auth/profile", {
@@ -30,6 +32,7 @@ const userSlice = createSlice({
   reducers: {
     setProfile: (state, action) => {
       state.profile = action.payload;
+      console.log("PROFILE DATA:", action.payload);
     },
     logout: (state) => {
       state.profile = null;
@@ -43,6 +46,8 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchProfile.fulfilled, (state, action) => {
+        console.log("✅ fetchProfile SUCCESS:", action.payload);
+
         state.loading = false;
         state.profile = action.payload;
       })
