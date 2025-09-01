@@ -21,7 +21,7 @@ import org.springframework.web.filter.CorsFilter;
 @EnableMethodSecurity
 public class SecurityConfig {
     private final String[] PUBLIC_ENDPOINTS = {
-            "/api/auth/login", "/api/auth/introspect", "/api/auth/logout", "/api/auth/refresh","/api/auth/register" // không cần đăng nhập == không cần truyền token
+            "/api/auth/login", "/api/auth/introspect", "/api/auth/logout", "/api/auth/refresh","/api/auth/register", "/api/words" // không cần đăng nhập == không cần truyền token
     };                                                                                          // còn lại là phải truyền token
 
     @Autowired

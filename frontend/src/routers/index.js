@@ -25,6 +25,9 @@ import EditExamPage from "../pages/Admin/Exams/EditExamPage";
 import ExamDetails from "../pages/User/ExamDetails";
 import SubmissonList from "../pages/User/SubmissonList";
 import SubmissionDetail from "../pages/User/SubmissionDetail";
+import DictionaryPage from "../pages/Admin/Dictionary";
+import WordCreate from "../pages/Admin/Dictionary/WordCreate";
+import WordEdit from "../pages/Admin/Dictionary/WordEdit";
 
 const AppRouter = () => {
   return (
@@ -74,6 +77,11 @@ const AppRouter = () => {
         path="/admin/vocabulary-lessons/:id"
         element={<AdminVocabularyLessonDetail />}
       />
+
+      {/* Admin Dictionary */}
+      <Route path="/admin/words" element={<DictionaryPage />} />
+      <Route path="/admin/words/create" element={<WordCreate />} />
+      <Route path="/admin/words/edit/:id" element={<WordEdit />} />
     </Routes>
   );
 };

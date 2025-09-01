@@ -27,6 +27,12 @@ const Header = () => {
         <Link to="/admin/vocabulary-lessons" className="hover:text-blue-500">
           Vocabulary Posts
         </Link>
+        <Link to="/admin/words" className="hover:text-blue-500">
+          Dictionary
+        </Link>
+        <Link to="/admin/vocabulary-lessons" className="hover:text-blue-500">
+          Vocabulary
+        </Link>
       </nav>
     </header>
   );
