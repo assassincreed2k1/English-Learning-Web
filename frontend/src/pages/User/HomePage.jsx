@@ -16,6 +16,18 @@ const HomePage = () => {
         <h1 className="text-2xl font-bold text-blue-600">English Learning</h1>
         <nav>
           <nav>
+            <Link
+              to="/vocabulary-lessons"
+              className="bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-600 transition mr-4"
+            >
+              Vocabulary Lessons
+            </Link>
+            <Link
+              to="/grammar-lessons"
+              className="bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-600 transition mr-4"
+            >
+              Grammar Lessons
+            </Link>
             {profile ? (
               <>
                 <span className="text-gray-700 font-medium mr-4">

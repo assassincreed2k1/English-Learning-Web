@@ -20,7 +20,7 @@ public class VocabularyLesson extends BaseEntity {
     private String description; // Mô tả ngắn về bài học
     private String thumbnail; // Ảnh đại diện cho bài học
     
-    @Column(columnDefinition = "LONGTEXT")
+    @Column(columnDefinition = "TEXT")
     private String content; // Nội dung bài học với HTML/CSS
     
     private Long examId; // ID của exam liên quan (không liên kết bảng)

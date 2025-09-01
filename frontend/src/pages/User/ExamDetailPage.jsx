@@ -202,7 +202,6 @@ const ExamDetailPage = () => {
                   : "bg-red-100 text-red-600"
               }`}
             >
-              {isConnected ? "🟢 Đã kết nối" : "🔴 Chưa kết nối"}
             </span>
           </h3>
           <div className="mb-2 max-h-48 overflow-y-auto border rounded p-2 bg-gray-50">

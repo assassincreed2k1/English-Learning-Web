@@ -26,6 +26,8 @@ import ExamDetails from "../pages/User/ExamDetails";
 import SubmissonList from "../pages/User/SubmissonList";
 import SubmissionDetail from "../pages/User/SubmissionDetail";
 import ExamDetailPage from "../pages/User/ExamDetailPage";
+import GrammarLessonList from "../pages/User/Grammar/GrammarLessonList";
+import GrammarLessonDetail from "../pages/User/Grammar/GrammarLessonDetail";
 
 const AppRouter = () => {
   return (
@@ -50,6 +52,11 @@ const AppRouter = () => {
       <Route
         path="/vocabulary-lessons/:id"
         element={<VocabularyLessonDetail />}
+      />
+       <Route path="/grammar-lessons" element={<GrammarLessonList />} />
+      <Route
+        path="/grammar-lessons/:id"
+        element={<GrammarLessonDetail />}
       />
       <Route path="/exam/:examId" element={<ExamDetails />} />
       <Route path="/exam/:id/detail" element={<ExamDetailPage />} />
